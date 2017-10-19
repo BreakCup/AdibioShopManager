@@ -1,0 +1,14 @@
+
+.login-content{
+    height: 100%;
+}
+
+.login-card{
+    width: 600px;
+    height: 400px;
+   
+}
+.title{
+    text-align: center;
+    color: lightskyblue;
+}

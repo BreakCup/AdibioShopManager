@@ -1,0 +1,25 @@
+<div class="login-content" fxLayout="column" fxLayoutAlign="center center" >
+  <mat-card class="login-card">
+    <div style="width:80%;margin:auto;">
+      <div fxLayout="column" fxLayoutAlign="space-around stretch" >
+          <h1 class="title">AdibioShop Manager</h1>
+          <mat-form-field hintLabel="">
+            
+            <input matInput #input maxlength="20" placeholder="账号">
+            <mat-hint align="end">{{input.value?.length || 0}}/20</mat-hint>
+          </mat-form-field>
+          <mat-form-field>
+  
+            <input matInput placeholder="密码" [type]="hide ? 'password' : 'text'">
+            <mat-icon  matSuffix  (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </mat-form-field>
+          <div fxLayout="row" fxLayoutAlign="space-around center" >
+              <button fxFlex="40" mat-raised-button color="primary">登录</button>
+              <button fxFlex="40" mat-button color="primary">忘记密码</button>
+          </div>
+        </div>
+    </div>
+  </mat-card>
+  
+</div>
+
