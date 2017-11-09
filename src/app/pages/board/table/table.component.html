@@ -9,11 +9,6 @@
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
   
-      <!-- KEY Column -->
-      <ng-container matColumnDef="key">
-        <mat-header-cell *matHeaderCellDef> 序号 </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.key}} </mat-cell>
-      </ng-container>
   
       <!-- ORDER_ID Column -->
       <ng-container matColumnDef="order_id">
@@ -25,6 +20,11 @@
       <ng-container matColumnDef="price">
         <mat-header-cell *matHeaderCellDef> 订单价格 </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> 订单状态 </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
       </ng-container>
   
   

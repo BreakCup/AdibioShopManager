@@ -33,6 +33,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 
 import { TableComponent } from './table/table.component';
 import { OrderComponent } from './order/order.component';
+import { CashbackComponent } from './cashback/cashback.component';
 
 //服务
 
@@ -80,7 +81,8 @@ import { OrderComponent } from './order/order.component';
         PrintCodeComponent,
         ProductDetailComponent,
         TableComponent,
-        OrderComponent
+        OrderComponent,
+        CashbackComponent,
 
       ],
 })

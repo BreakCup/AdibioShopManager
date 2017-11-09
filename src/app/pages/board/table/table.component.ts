@@ -39,7 +39,7 @@ export class TableComponent implements OnInit {
   @Input() Status:string;
   @Input() OrderData:OrderConf;
   
-  displayedColumns = ['key', 'order_id', 'price'];
+  displayedColumns = ['order_id', 'price','status'];
   exampleDatabase : ExampleDatabase;
   dataSource: ExampleDataSource | null;
 
@@ -116,9 +116,9 @@ export class TableComponent implements OnInit {
 
 
 export interface UserData {
-key: string;
 order_id: string;
 price:number;
+status:string;
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
@@ -156,9 +156,9 @@ export class ExampleDatabase {
 
 
     return {
-      key: (this.data.length + 1).toString(),
       order_id: orderInfo.order_id,
       price: orderInfo.price, 
+      status:orderInfo.status,
     };
   }
 }

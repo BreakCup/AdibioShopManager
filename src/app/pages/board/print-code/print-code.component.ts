@@ -22,11 +22,12 @@ export class PrintCodeComponent implements OnInit, AfterViewChecked {
   constructor(injector: Injector,private router:Router,private route:ActivatedRoute,private http:HttpGetOrderDetail,  public el:ElementRef) {
     // this.printCSS = ['http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css'];
 
-    this.printCSS =  ['./print-code.component.css'];
+    this.printCSS =  [''];
     this.printStyle = 
     `
       .print_content{
-          width: 100%;
+          width: 30mm;
+          height:20mm;
           display: flex;
           flex-direction: column;
           align-items: center;

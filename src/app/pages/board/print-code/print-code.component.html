@@ -1,36 +1,34 @@
 <mat-card  class="board-performent">
-  <div class="print_content" #print_div>
+    <essence-ng2-print 
+        [mode]="'popup'"  
+        [standard] = "loose" 
+        [popTitle]="'条形码打印'" 
+        [btnText]="'打印表格'" 
+        [btnClass]="{'mat-raised-button': true}" 
+        [printHTML]="print_div" 
+        [printStyle]="printStyle" 
+        [printCSS]="printCSS" 
+        [showBtn]="true" 
+        (click)="beforePrint()" 
+        (printComplete)="printComplete()">
+    </essence-ng2-print>
+  <div class="print_content" #print_div >
       <!--
           将你需要打印的内容都放在这里
       -->
         <div class="print_item" *ngFor = "let info of order_info.parm.infos" >
-            <table>
-                <tr>
-                    <label>{{info.product_name}}  &nbsp;&nbsp;</label>
-                    <label>{{info.name}}  &nbsp;&nbsp;</label>
-                    <label>{{info.phone.slice(0,3)}}****{{info.phone.slice(-4)}}</label>
-                </tr>
-                <tr>
-                    <img>
-                </tr>
-            </table>
+            <div>
+                <label>{{info.product_name}}  &nbsp;&nbsp;</label>
+                <label>{{info.name}}  &nbsp;&nbsp;</label>
+                <label>{{info.phone.slice(0,3)}}****{{info.phone.slice(-4)}}</label>
+            </div>
+            <img>
         </div>
 
 
-        <essence-ng2-print 
-            [mode]="'popup'"  
-            [standard] = "loose" 
-            [popTitle]="'表格打印'" 
-            [btnText]="'打印表格'" 
-            [btnClass]="{'mat-raised-button': true}" 
-            [printHTML]="print_div" 
-            [printStyle]="printStyle" 
-            [printCSS]="printCSS" 
-            [showBtn]="printBtnBoolean" 
-            (click)="beforePrint()" 
-            (printComplete)="printComplete()">
-        </essence-ng2-print>
+        
 
   </div>
+  
    
 </mat-card>

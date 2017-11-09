@@ -14,11 +14,11 @@ import {HttpGetOrder} from "./../../../public.server/http.getOrder.server";
 
 export class OrderComponent implements OnInit {
 
-  public AllData:OrderConf;
-  public UnpaidData:OrderConf;
-  public FinData:OrderConf;
-  public ProcData:OrderConf;
-  public CanceledData:OrderConf;
+  public AllData:OrderConf | null;
+  public UnpaidData:OrderConf | null;
+  public FinData:OrderConf | null;
+  public ProcData:OrderConf | null;
+  public CanceledData:OrderConf | null;
   public status = ['ALL','FINISHED','PROCESSING','UNPAID','CANCELED'];
   
 
@@ -50,6 +50,7 @@ export class OrderComponent implements OnInit {
         (res)=>{
           console.log('*************http res*********');
           console.log(res);
+          this.AllData = this.UnpaidData = this.CanceledData = this.FinData = this.ProcData = null;
           switch(status){
             case 'ALL':
             this.AllData = res;

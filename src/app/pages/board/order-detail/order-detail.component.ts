@@ -113,11 +113,17 @@ export class OrderDetailComponent implements OnInit {
   change(event){
 
     this.show=!this.show;
-    if(this.show)
-      this.tip = '修改信息';
-    else
-      this.tip = '确认修改';
-    
+    if(this.show){
+
+        this.tip = '修改信息';
+        console.log(this.order_info);
+    }
+      
+    else{
+        this.tip = '确认修改';
+        
+    }
+      
     
   }
   print(){

@@ -73,11 +73,11 @@
               <mat-radio-group>
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.gender=='M'" 
-                (checked)="info.gender = $event.target.value"
+                (click)="info.gender = $event.target.value"
                 value="M">男</mat-radio-button>
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.gender=='F'" 
-                (checked)="info.gender = $event.target.value" 
+                (click)="info.gender = $event.target.value" 
                 value="F">女</mat-radio-button>
               </mat-radio-group>
             </div>
@@ -129,11 +129,11 @@
               <mat-radio-group>
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.has_diabetic==1" 
-                (checked)="info.has_diabetic = $event.target.value"
+                (click)="info.has_diabetic = $event.target.value"
                 [value]='1'>是</mat-radio-button>
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.has_diabetic==0" 
-                (checked)="info.has_diabetic = $event.target.value"
+                (click)="info.has_diabetic = $event.target.value"
                 [value]='0'>否</mat-radio-button>
               </mat-radio-group>
             </div>
