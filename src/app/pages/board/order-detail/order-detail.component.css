@@ -1,0 +1,12 @@
+.order-object{
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-form{
+    min-width: 200px;
+    
+    width: 100%;
+    
+}

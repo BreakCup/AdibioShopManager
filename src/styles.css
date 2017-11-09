@@ -25,12 +25,30 @@
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
   }
-
-html{
+/*
+ html{
   height:100%;
-  background-color: lightskyblue;
-}
-body{
-  height: 90%;
+  background-color: #03A9F4;
 }
 
+body{
+  height: 100%;
+} */
+
+html,body{height:100%;width:100%;margin:0;padding:0;overflow: hidden}
+.board-performent{
+  margin: 10px 10px;
+  height: 86%;
+  
+}
+
+.board-performent .order-detail-form{
+  margin: auto;
+  width: 80%;
+  height: 95%;
+  overflow: auto;
+}
+
+.full-width{
+  width: 100%;
+}

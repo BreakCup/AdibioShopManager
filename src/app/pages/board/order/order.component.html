@@ -1,0 +1,71 @@
+<mat-card  class="board-performent">
+  
+  <!-- 普通的tab -->
+  <mat-tab-group (selectedTabChange)="TabChanged($event,$event.index)" >
+    <mat-tab label="全部" >
+      <order-table [OrderData]="AllData" [Status] = 'status[0]' ></order-table>
+    </mat-tab>
+    <mat-tab label="已完成">
+      <order-table [OrderData]="FinData" [Status] = 'status[1]' ></order-table>
+    </mat-tab>
+    <mat-tab label="处理中">
+      <order-table [OrderData]="ProcData" [Status] = 'status[2]'  ></order-table>
+    </mat-tab>
+    <mat-tab label="未支付">
+      <order-table [OrderData]="UnpaidData" [Status] = 'status[3]'  ></order-table>
+    </mat-tab>
+    <mat-tab label="已取消">
+      <order-table [OrderData]="CanceledData" [Status] = 'status[4]' ></order-table>
+    </mat-tab>
+  </mat-tab-group>
+  
+  <!-- 跳转式带路由的tab -->
+  <!-- <nav mat-tab-nav-bar>
+    <a mat-tab-link
+    routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive"
+    (click)="clickevent()">
+        456
+    </a>
+    <a mat-tab-link
+    routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive">
+    123
+    </a>
+  </nav> 
+  <order-table></order-table> -->
+
+  <!-- 自定义点击事件式tab -->
+  <!-- <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        已完成
+      </ng-template>
+
+      <order-table></order-table>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        处理中
+      </ng-template>
+
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        未支付
+      </ng-template>
+
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        已取消
+      </ng-template>
+
+    </mat-tab>
+
+  </mat-tab-group> -->
+          
+          
+    
+
+</mat-card>

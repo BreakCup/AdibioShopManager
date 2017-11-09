@@ -1,0 +1,54 @@
+
+<nav mat-navbar-header class="board-header" fxLayout="row" fxLayoutAlign="space-between center">
+  <!-- <button mat-button fxHide.gt-xs="true" class="header-btn" (click)="sidenav.toggle()" ><mat-icon>dehaze</mat-icon></button> -->
+  <!-- <a  fxFlexOffset="70px" routerLink="/board"><img class="header-icon" src="../../../assets/pic/adb.png"/></a>  -->
+  <div fxFlexOffset="65px"><h1>安帝宝科技</h1></div>
+  <button mat-icon-button class="header-btn">
+      <mat-icon fxFlexOffset="15" class="btn-icon" [matMenuTriggerFor]="list_menu">account_circle</mat-icon>
+  </button>
+  
+</nav>    
+<mat-menu #list_menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>设置</span>
+  </button>
+  <button mat-menu-item (click)="Logout($event)" >
+    <mat-icon>backspace</mat-icon>
+    <span>登出</span>
+  </button>
+</mat-menu>
+
+<div fxLayout="row" class="board-content">
+  <!-- <mat-sidenav  #sidenav mode="push" opened="true" fxFlex="none"  class="content-nav">
+    <mat-list style="width:100%;">
+      <mat-divider></mat-divider>
+      <a routerLink="/board/order" ><button mat-button color="primary" class="list-btn">订单管理</button></a>
+      <mat-divider></mat-divider>
+      <a routerLink="/board/" ><button mat-button color="primary" class="list-btn">产品管理</button></a>
+      <mat-divider></mat-divider>
+      <a routerLink="/board/" ><button mat-button color="primary" class="list-btn">成员管理</button></a>
+      <mat-divider></mat-divider>
+      <a routerLink="/board/" ><button mat-button color="primary" class="list-btn">数据管理</button></a>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </mat-sidenav> -->
+  <div fxFlex="none"  class="content-nav">
+    <mat-list style="width:100%;">
+      <a routerLink="/board/order" ><button mat-button color="primary" class="list-btn">订单管理</button></a>
+      <mat-divider></mat-divider>
+      <a routerLink="/board/product" ><button mat-button color="primary" class="list-btn">产品管理</button></a>
+      <mat-divider></mat-divider>
+      <a routerLink="/board/member" ><button mat-button color="primary" class="list-btn">成员管理</button></a>
+      <mat-divider></mat-divider>
+      <a routerLink="/board/data" ><button mat-button color="primary" class="list-btn">数据管理</button></a>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
+  <div fxFlex="auto">
+      <router-outlet fxFill></router-outlet>
+  </div>
+ 
+  
+  
+</div>

@@ -1,0 +1,207 @@
+<mat-card  class="board-performent">
+  <mat-card class="order-detail-form">
+    <mat-list>
+      <div style="display:flex; justify-content: space-between;">
+        <h1 mat-subheader>订单信息</h1>
+        <div >
+          <button  mat-raised-button color="primary">保存</button>
+          <button  mat-raised-button color="accent" (click)="print()" >打印条码</button>
+        </div>
+
+        
+      </div>
+      
+      <mat-list-item>
+        <div  class="full-width" fxLayout="row" fxLayoutAlign="space-between center">
+          <label>编号</label>
+          <label>{{order_info.parm.order.order_id}}</label>
+        </div>
+        
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <!-- <mat-icon mat-list-icon>monetization_on</mat-icon> -->
+        <mat-grid-list mat-line cols="12" rowHeight="100%" >
+          <mat-grid-tile-header>金额</mat-grid-tile-header>
+          <mat-grid-tile [colspan]='10' [rowspan]='1' ></mat-grid-tile>
+          <mat-grid-tile [colspan]='2' [rowspan]='1' >￥{{order_info.parm.order.price}}</mat-grid-tile>
+        </mat-grid-list>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-grid-list mat-line cols="12" rowHeight="100%" >
+          <mat-grid-tile-header>状态</mat-grid-tile-header>
+          <mat-grid-tile [colspan]='10' [rowspan]='1' ></mat-grid-tile>
+          <mat-grid-tile [colspan]='2' [rowspan]='1' >{{order_info.parm.order.status}}</mat-grid-tile>
+        </mat-grid-list>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-grid-list mat-line cols="12" rowHeight="100%" >
+          <mat-grid-tile-header>备注</mat-grid-tile-header>
+          <mat-grid-tile [colspan]='0' [rowspan]='1' ></mat-grid-tile>
+          <mat-grid-tile [colspan]='12' [rowspan]='1'></mat-grid-tile>
+        </mat-grid-list>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h1 mat-subheader>订单项目</h1>
+
+      <mat-accordion *ngFor="let info of order_info.parm.infos" >
+        <mat-expansion-panel  hideToggle="true">
+          <mat-expansion-panel-header  >
+            <mat-panel-title>
+              {{info.product_name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{info.name}}
+            </mat-panel-description>
+            <mat-icon>reorder</mat-icon>
+          </mat-expansion-panel-header>
+          
+          <!-- 项目信息 -->
+          <form class="item-form">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="姓名"
+                 [value]="info.name" 
+                (input)="info.name=$event.target.value"
+                [disabled]="show"  >
+            </mat-form-field>
+
+            <div class="full-width">
+              <label style="color: #888;" >性别：</label>
+              <mat-radio-group>
+                <mat-radio-button [disabled]="show" 
+                [checked]="info.gender=='M'" 
+                (checked)="info.gender = $event.target.value"
+                value="M">男</mat-radio-button>
+                <mat-radio-button [disabled]="show" 
+                [checked]="info.gender=='F'" 
+                (checked)="info.gender = $event.target.value" 
+                value="F">女</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <mat-form-field class="full-width">
+              <input matInput type="number" min='1' placeholder="年龄" 
+              [value]="info.age" 
+              (input)="info.age=$event.target.value"
+               [disabled]="show">
+            </mat-form-field>
+
+            <table class="full-width" cellspacing="0"><tr>
+              <td><mat-form-field class="full-width">
+                  <input matInput placeholder="省份" 
+                  [value]="info.province" 
+                  (input)="info.province=$event.target.value"
+                  [disabled]="show">
+                </mat-form-field></td>
+              <td><mat-form-field class="full-width">
+                <input matInput placeholder="市"
+                [value]="info.city" 
+                (input)="info.city=$event.target.value"
+                [disabled]="show">
+              </mat-form-field></td>
+              <td><mat-form-field class="full-width">
+                <input matInput placeholder="区" 
+                [value]="info.district" 
+                (input)="info.district=$event.target.value"
+                [disabled]="show">
+              </mat-form-field></td>
+            </tr></table>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="详细地址" 
+                [value]="info.address" 
+                (input)="info.address=$event.target.value"
+                [disabled]="show">
+              </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput type="phone" placeholder="电话"
+              [value]="info.phone" 
+              (input)="info.phone=$event.target.value"
+              [disabled]="show">
+            </mat-form-field>
+
+            <div class="full-width">
+              <label style="color: #888; " >是否有糖尿病家族史：</label>
+              <mat-radio-group>
+                <mat-radio-button [disabled]="show" 
+                [checked]="info.has_diabetic==1" 
+                (checked)="info.has_diabetic = $event.target.value"
+                [value]='1'>是</mat-radio-button>
+                <mat-radio-button [disabled]="show" 
+                [checked]="info.has_diabetic==0" 
+                (checked)="info.has_diabetic = $event.target.value"
+                [value]='0'>否</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="身高(cm)" type="number" 
+              [value]="info.height" 
+              (input)="info.height=$event.target.value"
+              [disabled]="show">
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="体重(kg)" type="number" 
+              [value]="info.weight" 
+              (input)="info.weight=$event.target.value"
+              [disabled]="show">
+            </mat-form-field>
+          </form>
+
+          <!-- 物流信息 -->
+          <h1 mat-subheader>物流信息</h1>
+          <form class="item-form">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="物流公司" [disabled]="show" >
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput  placeholder="物流单号" [disabled]="show">
+            </mat-form-field>
+          </form>
+          <mat-action-row>
+            <button mat-button color="primary" (click)="change($event)" >{{tip.toString()}}</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+      
+      <!-- <mat-accordion >
+        <mat-expansion-panel  hideToggle="true">
+          <mat-expansion-panel-header  >
+            <mat-panel-title>
+              物流信息
+            </mat-panel-title>
+            <mat-panel-description>
+              订单的物流状态
+            </mat-panel-description>
+            <mat-icon>local_shipping</mat-icon>
+
+          </mat-expansion-panel-header>
+          
+          
+
+          <mat-action-row>
+            <button mat-button color="primary">保存</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion> -->
+
+      <h1 mat-subheader>检测结果</h1>
+      <p>待讨论</p>
+    </mat-list>
+
+  </mat-card>
+</mat-card>
+
+<!-- 
+<mat-form-field class="">
+    <p>订单编号：<span>20162220366</span></p>
+  </mat-form-field>
+  
+  <mat-form-field class="">
+    <p>金额：<span>￥0.01</span></p>
+  </mat-form-field> -->

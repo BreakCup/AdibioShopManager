@@ -7,32 +7,68 @@ import { MatButtonModule } from '@angular/material';
 import 'hammerjs';
 
 // 引入flex-layout
-import { FlexLayoutModule } from "@angular/flex-layout";
+// import { FlexLayoutModule } from "@angular/flex-layout";
 
+//模块
 import {AppComponent} from "./app.component";
 import { LoginModule } from "./pages/login/login.module";
+import { BoardModule } from './pages/board/board.module';
 
-import {  RouterModule } from '@angular/router';
 
-import {appRoutes} from './app.route';
+//路由
+import {AppRoutesModule} from './app.route';
+import {HttpClientModule} from '@angular/common/http';
+import { NotFountComponent} from "./not_found.component";
+
+//服务
+import {LoginServer} from './pages/login/login.server';
+import {AuthGuard} from './pages/board/auth-guard.server';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+import {HttpLogin} from './public.server/http.login.server';
+import {HttpGetOrder} from './public.server/http.getOrder.server';
+import {LogoutServer} from './public.server/logout.server';
+import {HttpGetOrderDetail} from './public.server/http.getOrderDetail';
+
+//组件
+// import { TableComponent} from "./pages/board/table/table.component";
+
+//配置文件
+import { HttpConf } from './conf/http.conf';
 
 
 @NgModule({
-  // declaratiLoginComponentons: [
-
-  // ],
+ 
  
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FlexLayoutModule, // 为子组件引入FlexLayout
+    // FlexLayoutModule, // 为子组件引入FlexLayout
     MatButtonModule,
+    HttpClientModule, //HTTP模块
+
+
     LoginModule,
-    RouterModule.forRoot(appRoutes)
+    
+    AppRoutesModule, //路由模块
+    BoardModule,
+    
 
   ],
-  declarations: [ 
-    AppComponent
+
+    declarations: [ 
+    AppComponent,
+    NotFountComponent,
+    // TableComponent
+
+  ],
+  providers:[
+    AuthGuard,
+    CookieService,
+    HttpLogin,
+    LogoutServer,
+    HttpConf,
+    HttpGetOrder,
+    HttpGetOrderDetail
   ],
 
   bootstrap: [AppComponent]
