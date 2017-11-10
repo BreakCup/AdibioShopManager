@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  Router  } from '@angular/router';
-import { LogoutServer } from './../../public.server/logout.server';
+
 
 @Component({
   selector: 'board',
@@ -9,7 +9,7 @@ import { LogoutServer } from './../../public.server/logout.server';
 })
 export class BoardComponent implements OnInit {
 
-  constructor(private logout:LogoutServer, private route:Router) { 
+  constructor( private route:Router) { 
     //route.navigate(['board/order']);
   }
 

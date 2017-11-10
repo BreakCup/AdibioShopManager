@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import {MatCardModule} from '@angular/material';
 import {LoginComponent} from './login.component';
@@ -8,11 +9,11 @@ import {MatInputModule} from '@angular/material';
 import {MatIconModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import {MatSnackBarModule} from '@angular/material';
-
+import {LoginRouterModule} from './login.route';
 
 @NgModule({
     imports: [
-        BrowserModule,
+        // BrowserModule,
         MatCardModule,
         FlexLayoutModule,
         MatCardModule,
@@ -20,7 +21,9 @@ import {MatSnackBarModule} from '@angular/material';
         MatInputModule,
         MatIconModule,
         MatButtonModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        CommonModule,
+        LoginRouterModule,
 
     ],
     exports:[

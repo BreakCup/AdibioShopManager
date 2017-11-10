@@ -2,6 +2,7 @@ import { Component, OnInit,Injector,AfterViewChecked ,ViewChildren,Renderer2,Ele
 import {  Router, ActivatedRoute, ParamMap   } from '@angular/router';
 import {  HttpGetOrderDetail  } from './../../../public.server/http.getOrderDetail';
 import {OrderDetailConf,OrderDetailInfosConf} from "./../../../conf/order_detail.conf";
+import {HttpConf} from "./../../../conf/http.conf";
 declare var $:any;
 
 @Component({
@@ -16,18 +17,17 @@ export class PrintCodeComponent implements OnInit, AfterViewChecked {
   printStyle: string;
   public order_id:string;
   public order_info:OrderDetailConf | null;
-  
+  public httpconf:HttpConf;
 
 
   constructor(injector: Injector,private router:Router,private route:ActivatedRoute,private http:HttpGetOrderDetail,  public el:ElementRef) {
     // this.printCSS = ['http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css'];
-
+    
     this.printCSS =  [''];
-    this.printStyle = 
+    
     `
       .print_content{
-          width: 30mm;
-          height:20mm;
+          width: 100%;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -35,10 +35,14 @@ export class PrintCodeComponent implements OnInit, AfterViewChecked {
           
       }
       .print_content .print_item{
-          margin-top: 20px;
-          margin-bottom: 20px;
+        position: relative;
+        width:30mm;
+        height:20mm;
+        margin-top: 20px;
+        margin-bottom: 20px;
           
       }
+      
     `;
 
 
@@ -64,6 +68,8 @@ export class PrintCodeComponent implements OnInit, AfterViewChecked {
     this.order_id = str;
     console.log('***************************order_id**************************');
     console.log(this.order_id);
+
+    this.printStyle = '';
     this.http.GerOrderDetail(this.order_id).then(
         (result)=>{
             this.order_info = result;

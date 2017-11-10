@@ -12,13 +12,15 @@ export class HttpLogin{
         username:'admin',
         password:'admin'
     };
-    constructor(private http:HttpClient,private httpConf:HttpConf){
+    constructor(private http:HttpClient,private httpConf:HttpConf ){
     
     }
     HttpLogin(user:string , pass:string){
+        var body = 'username=' + user.toString() +"&password=" + pass.toString();
         this.body.username = user;
         this.body.password = pass;
-        return this.http.post(this.httpConf.url+'/dologin', this.body )
+
+        return this.http.post(this.httpConf.url+'/dologin' ,body)
         .toPromise()
         .then(response => response)
         .catch(this.handleError);

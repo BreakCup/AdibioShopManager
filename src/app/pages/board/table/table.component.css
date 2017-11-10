@@ -1,6 +1,6 @@
 .order-table{
     position: relative;
-    max-height: 480px;
+    max-height: 420px;
     overflow-y: auto;
 }
 .search-bar{

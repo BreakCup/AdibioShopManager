@@ -11,5 +11,12 @@ export class HttpConf{
     statusFin = 'FINISHED';
     statusCanceled = 'CANCELED';
 
-    limit = 20;
+    order_limit = 20;
+
+    getLatestCashbackData = '/latest_need_cashback';
+    getPartCashbackData = '/part_need_cashback';
+
+    confirm = '/paid_cashback';
+    
+    cashback_limit = 20;
 }

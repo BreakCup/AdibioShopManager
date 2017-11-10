@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // 引入material和hammer
-import { MatButtonModule } from '@angular/material';
 import 'hammerjs';
 
 // 引入flex-layout
@@ -21,13 +20,12 @@ import {HttpClientModule} from '@angular/common/http';
 import { NotFountComponent} from "./not_found.component";
 
 //服务
-import {LoginServer} from './pages/login/login.server';
 import {AuthGuard} from './pages/board/auth-guard.server';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {HttpLogin} from './public.server/http.login.server';
 import {HttpGetOrder} from './public.server/http.getOrder.server';
-import {LogoutServer} from './public.server/logout.server';
 import {HttpGetOrderDetail} from './public.server/http.getOrderDetail';
+import {HttpGerCashbackData} from './public.server/http.getCashbackData';
 
 //组件
 // import { TableComponent} from "./pages/board/table/table.component";
@@ -42,8 +40,6 @@ import { HttpConf } from './conf/http.conf';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    // FlexLayoutModule, // 为子组件引入FlexLayout
-    MatButtonModule,
     HttpClientModule, //HTTP模块
 
 
@@ -65,10 +61,10 @@ import { HttpConf } from './conf/http.conf';
     AuthGuard,
     CookieService,
     HttpLogin,
-    LogoutServer,
     HttpConf,
     HttpGetOrder,
-    HttpGetOrderDetail
+    HttpGetOrderDetail,
+    HttpGerCashbackData
   ],
 
   bootstrap: [AppComponent]

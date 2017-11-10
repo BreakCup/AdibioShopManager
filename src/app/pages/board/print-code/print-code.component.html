@@ -17,12 +17,12 @@
           将你需要打印的内容都放在这里
       -->
         <div class="print_item" *ngFor = "let info of order_info.parm.infos" >
-            <div>
-                <label>{{info.product_name}}  &nbsp;&nbsp;</label>
-                <label>{{info.name}}  &nbsp;&nbsp;</label>
-                <label>{{info.phone.slice(0,3)}}****{{info.phone.slice(-4)}}</label>
+            <div class="lab_content">
+                <label class="lab">{{info.product_name}}  &nbsp;&nbsp;</label>
+                <label class="lab">{{info.name}}  &nbsp;&nbsp;</label>
+                <label class="lab">{{info.phone.slice(0,3)}}****{{info.phone.slice(-4)}}</label>
             </div>
-            <img>
+            <img class="img">
         </div>
 
 

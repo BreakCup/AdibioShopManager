@@ -57,7 +57,7 @@ export class OrderDetailComponent implements OnInit {
                 order_patient_infoid: "",
                 name: "",
                 gender: "",
-                age: 20,
+                age: 0,
                 country: "",
                 province: "",
                 city: "",
@@ -87,23 +87,26 @@ export class OrderDetailComponent implements OnInit {
 
   ngOnInit() {
     //获取id;
-    var str = '';
+    this.order_id = '';
     this.route.paramMap
     .switchMap((param:ParamMap)=>param.get('id'))
     .subscribe((result)=>{
-        str += result;
+        this.order_id += result;
     });
-    this.order_id = str;
+
+
     console.log('***************************order_id**************************');
     console.log(this.order_id);
     this.http.GerOrderDetail(this.order_id).then(
         (result)=>{
+            this.order_info.parm = null;
             this.order_info = result;
 
     },
         (errMsg)=>{
             console.log("an error happen");
             console.log(errMsg);
+            this.order_info.parm = null;
 
     });
 
@@ -127,7 +130,8 @@ export class OrderDetailComponent implements OnInit {
     
   }
   print(){
-    this.router.navigate(['/board/print',this.order_id]);
+    
+    // this.router.navigate(['/board/print',this.order_id]);
   }
 
 }

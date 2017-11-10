@@ -68,6 +68,8 @@ export class TableComponent implements OnInit {
         if (!this.dataSource) { return; }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
+      console.log('************data source************');
+      console.log(this.dataSource);
     }
     
 
@@ -152,7 +154,7 @@ export class ExampleDatabase {
   }
 
   /** Builds and returns a new User. */
-  private getOrder(orderInfo:OrderInfoConf) {
+  public getOrder(orderInfo:OrderInfoConf) {
 
 
     return {
@@ -195,8 +197,9 @@ export class ExampleDataSource extends DataSource<any> {
 
       const data = this._exampleDatabase.data.slice();
 
+      //筛选符合查找内容的数据
       var resultData = data.filter((item: UserData) => {
-        let searchStr = (item.order_id).toLowerCase();           //查找的内容
+        let searchStr = (item.order_id).toLowerCase();           //item.order_id为查找的内容
         if(this.filter==''){
           return true;
         }
@@ -204,9 +207,15 @@ export class ExampleDataSource extends DataSource<any> {
       });
       this._paginator.length = resultData.length;
       var startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-      if(startIndex > resultData.length){
-        startIndex = 0;
+
+      //如果是最后一页
+      if(Math.floor(this._paginator.length/this._paginator.pageSize)+1 == this._paginator.pageIndex){
+        console.log("********************last page!******************");
       }
+      // if(startIndex > resultData.length){
+      //   startIndex = 0;
+      // }
+      //返回符合条件的数据/某一页
       return resultData.splice(startIndex, this._paginator.pageSize);
     
     });
@@ -215,5 +224,22 @@ export class ExampleDataSource extends DataSource<any> {
   }
 
   disconnect() {}
+
+  //加入新的数据
+  refresh(newData:OrderInfoConf){
+    let data = this._exampleDatabase.data.slice();
+    data.push(this._exampleDatabase.getOrder(newData));
+    this._exampleDatabase.dataChange.next(data);
+  }
+
+  //清空数据
+  clean(){
+    this._exampleDatabase.dataChange.next([]);
+  }
+
+  // 通过http获取数据
+  GetPartOrder(){
+
+  }
 }
 

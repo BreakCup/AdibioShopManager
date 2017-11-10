@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import {MatSidenavModule} from '@angular/material';
@@ -64,6 +65,7 @@ import { CashbackComponent } from './cashback/cashback.component';
         MatExpansionModule,
         MatRadioModule,
         EssenceNg2PrintModule,
+        CommonModule,
         
         
     ],

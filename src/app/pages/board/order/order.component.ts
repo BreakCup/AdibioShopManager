@@ -69,14 +69,7 @@ export class OrderComponent implements OnInit {
             break;
 
           }
-          
-  
-        },
-        (erro)=>{
-          console.log('*************http error*********');
-          console.log(erro);
-        }
-      );
+      });
     }
     
     

@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginServer} from './login.server';
+
+
+import {MatSnackBar} from '@angular/material';
+
+import {HttpLogin} from './../../public.server/http.login.server';
+import {  Router  } from '@angular/router';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers:[LoginServer],
+
 })
 export class LoginComponent implements OnInit  {
   passWord:String;
   user:String;
   
-  constructor(public loginServer:LoginServer ) { 
+  constructor(private httpLogin:HttpLogin,public snackBar: MatSnackBar, private route:Router,) { 
     
   }
 
@@ -35,8 +40,28 @@ export class LoginComponent implements OnInit  {
   }
 
   Login(event){
-    this.loginServer.Login(this.user,this.passWord,event);
-
+    if(this.user==undefined || this.user==''){
+      this.snackBar.open("请输入用户名！",'确定',{duration: 1000,});
+    }else if(this.passWord==undefined ||this.passWord==""){
+        this.snackBar.open("请输入密码！",'确定',{duration: 1000,});
+    }else{
+      this.httpLogin.HttpLogin(this.user.toString(),this.passWord.toString()).then(
+        (result)=>{
+            if(result.result=='ok'){
+                console.log('成功登录');
+                this.route.navigate(['/board/order']);
+            }else{
+                this.snackBar.open("用户名或者密码错误！",'确定',{duration: 1000,});
+            }
+        },
+        (error)=>{
+            console.log(error);
+            this.snackBar.open("请求错误！",'确定',{duration: 1000,});
+        }
+    );
+    }
+    
+    
   }
 
   hide = true;

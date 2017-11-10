@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {  Routes,RouterModule  } from '@angular/router';
-import { LoginComponent} from "./pages/login/login.component";
-import { BoardComponent} from "./pages/board/board.component";
+// import { LoginModule } from "./pages/login/login.module";
+// import { BoardModule } from './pages/board/board.module';
 import { NotFountComponent} from "./not_found.component";
 
 //服务
@@ -11,11 +11,11 @@ const appRoutes:Routes = [
     {
         path: 'board',
         loadChildren: 'app/pages/board/board.module#BoardModule',
-        canLoad:[AuthGuard]
+        // canLoad:[AuthGuard]
     },
     {
         path:'login',
-        component:LoginComponent
+        loadChildren: 'app/pages/login/login.module#LoginModule',
     },{
         path:"**",
         component:NotFountComponent

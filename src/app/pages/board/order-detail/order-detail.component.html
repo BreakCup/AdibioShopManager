@@ -6,6 +6,7 @@
         <div >
           <button  mat-raised-button color="primary">保存</button>
           <button  mat-raised-button color="accent" (click)="print()" >打印条码</button>
+          
         </div>
 
         
@@ -73,11 +74,9 @@
               <mat-radio-group>
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.gender=='M'" 
-                (click)="info.gender = $event.target.value"
                 value="M">男</mat-radio-button>
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.gender=='F'" 
-                (click)="info.gender = $event.target.value" 
                 value="F">女</mat-radio-button>
               </mat-radio-group>
             </div>
@@ -126,15 +125,13 @@
 
             <div class="full-width">
               <label style="color: #888; " >是否有糖尿病家族史：</label>
-              <mat-radio-group>
+              <mat-radio-group >
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.has_diabetic==1" 
-                (click)="info.has_diabetic = $event.target.value"
-                [value]='1'>是</mat-radio-button>
+                value='1'>是</mat-radio-button>
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.has_diabetic==0" 
-                (click)="info.has_diabetic = $event.target.value"
-                [value]='0'>否</mat-radio-button>
+                value='0'>否</mat-radio-button>
               </mat-radio-group>
             </div>
 
