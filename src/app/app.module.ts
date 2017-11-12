@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // 引入material和hammer
+//模块
 import 'hammerjs';
 
 // 引入flex-layout
@@ -10,8 +11,7 @@ import 'hammerjs';
 
 //模块
 import {AppComponent} from "./app.component";
-import { LoginModule } from "./pages/login/login.module";
-import { BoardModule } from './pages/board/board.module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 //路由
@@ -20,8 +20,10 @@ import {HttpClientModule} from '@angular/common/http';
 import { NotFountComponent} from "./not_found.component";
 
 //服务
-import {AuthGuard} from './pages/board/auth-guard.server';
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import {Interceptor} from './public.server/http.inteceptor';
+import {OrderDetailResolver} from './resolve.server/resolve.order_detail';
+// import { CookieService } from 'angular2-cookie/services/cookies.service';
+import {AuthGuard} from './public.server/auth-guard.server';
 import {HttpLogin} from './public.server/http.login.server';
 import {HttpGetOrder} from './public.server/http.getOrder.server';
 import {HttpGetOrderDetail} from './public.server/http.getOrderDetail';
@@ -43,10 +45,8 @@ import { HttpConf } from './conf/http.conf';
     HttpClientModule, //HTTP模块
 
 
-    LoginModule,
-    
     AppRoutesModule, //路由模块
-    BoardModule,
+
     
 
   ],
@@ -58,13 +58,20 @@ import { HttpConf } from './conf/http.conf';
 
   ],
   providers:[
+    
+    // CookieService,
     AuthGuard,
-    CookieService,
     HttpLogin,
     HttpConf,
     HttpGetOrder,
     HttpGetOrderDetail,
-    HttpGerCashbackData
+    HttpGerCashbackData,
+    OrderDetailResolver,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
+    }
   ],
 
   bootstrap: [AppComponent]

@@ -8,21 +8,21 @@ import { DataComponent } from './data/data.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { PrintCodeComponent } from './print-code/print-code.component';
 import { CashbackComponent } from './cashback/cashback.component';
-import {AuthGuard} from './auth-guard.server';
+import {AuthGuard} from './../../public.server/auth-guard.server';
 
 const BoardRoutes:Routes = [
     {
         path: '',
         component: BoardComponent,
-        canActivate:[AuthGuard],
+        // canActivate:[AuthGuard],
         children: [
           {
             path: '',
-            canActivateChild:[],
+            // canActivateChild:[],
             children: [
               {
                 path: 'order',
-                component:OrderComponent
+                loadChildren:'./order/order.module#OrderModule'
               },{
                 path: 'product',
                 component:ProductComponent
@@ -34,13 +34,13 @@ const BoardRoutes:Routes = [
                 component:DataComponent
               },{
                 path: 'detail/:id',
-                component:OrderDetailComponent
+                loadChildren:'./order-detail/order-detail.module#OrderDetailModule'
               },{
                 path: 'print/:id',
-                component:PrintCodeComponent
+                loadChildren:'./print-code/print-code.module#PrintCodeModule'
               },{
                 path: 'cashback',
-                component:CashbackComponent
+                loadChildren:'./cashback/cashback.module#CashbackModule'
               }
               
             ]

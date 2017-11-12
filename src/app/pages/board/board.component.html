@@ -20,19 +20,7 @@
 </mat-menu>
 
 <div fxLayout="row" class="board-content">
-  <!-- <mat-sidenav  #sidenav mode="push" opened="true" fxFlex="none"  class="content-nav">
-    <mat-list style="width:100%;">
-      <mat-divider></mat-divider>
-      <a routerLink="/board/order" ><button mat-button color="primary" class="list-btn">订单管理</button></a>
-      <mat-divider></mat-divider>
-      <a routerLink="/board/" ><button mat-button color="primary" class="list-btn">产品管理</button></a>
-      <mat-divider></mat-divider>
-      <a routerLink="/board/" ><button mat-button color="primary" class="list-btn">成员管理</button></a>
-      <mat-divider></mat-divider>
-      <a routerLink="/board/" ><button mat-button color="primary" class="list-btn">数据管理</button></a>
-      <mat-divider></mat-divider>
-    </mat-list>
-  </mat-sidenav> -->
+
   <div fxFlex="none"  class="content-nav">
     <mat-list style="width:100%;">
       <a routerLink="/board/order" ><button mat-button color="primary" class="list-btn">订单管理</button></a>
@@ -47,9 +35,9 @@
       <mat-divider></mat-divider>
     </mat-list>
   </div>
-  <div fxFlex="auto">
-      <router-outlet fxFill></router-outlet>
-  </div>
+  <mat-card  class="board-performent"  fxFlex="auto">
+      <router-outlet></router-outlet>
+  </mat-card>
  
   
   

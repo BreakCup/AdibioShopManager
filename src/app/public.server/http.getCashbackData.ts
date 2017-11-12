@@ -1,6 +1,5 @@
-import { HttpClient,HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { HttpClient,HttpResponse } from '@angular/common/http';
 import {CashbackConf,ConfirmConf} from './../conf/cashback.conf'
 
 import { HttpConf } from './../conf/http.conf';

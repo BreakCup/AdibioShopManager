@@ -131,7 +131,7 @@ export class OrderDetailComponent implements OnInit {
   }
   print(){
     
-    // this.router.navigate(['/board/print',this.order_id]);
+    this.router.navigate(['board/print',this.order_id]);
   }
 
 }

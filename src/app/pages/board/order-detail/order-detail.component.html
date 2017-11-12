@@ -1,4 +1,4 @@
-<mat-card  class="board-performent">
+<div  class="board-performent">
   <mat-card class="order-detail-form">
     <mat-list>
       <div style="display:flex; justify-content: space-between;">
@@ -13,7 +13,7 @@
       </div>
       
       <mat-list-item>
-        <div  class="full-width" fxLayout="row" fxLayoutAlign="space-between center">
+        <div  class="full-width" style="display:flex; justify-content:space-between; ">
           <label>编号</label>
           <label>{{order_info.parm.order.order_id}}</label>
         </div>
@@ -166,39 +166,10 @@
         </mat-expansion-panel>
       </mat-accordion>
       
-      <!-- <mat-accordion >
-        <mat-expansion-panel  hideToggle="true">
-          <mat-expansion-panel-header  >
-            <mat-panel-title>
-              物流信息
-            </mat-panel-title>
-            <mat-panel-description>
-              订单的物流状态
-            </mat-panel-description>
-            <mat-icon>local_shipping</mat-icon>
-
-          </mat-expansion-panel-header>
-          
-          
-
-          <mat-action-row>
-            <button mat-button color="primary">保存</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-      </mat-accordion> -->
 
       <h1 mat-subheader>检测结果</h1>
       <p>待讨论</p>
     </mat-list>
 
   </mat-card>
-</mat-card>
-
-<!-- 
-<mat-form-field class="">
-    <p>订单编号：<span>20162220366</span></p>
-  </mat-form-field>
-  
-  <mat-form-field class="">
-    <p>金额：<span>￥0.01</span></p>
-  </mat-form-field> -->
+</div>

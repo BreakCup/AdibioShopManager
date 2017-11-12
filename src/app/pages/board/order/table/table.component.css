@@ -1,0 +1,13 @@
+.order-table{
+    position: relative;
+    max-height: 420px;
+    overflow-y: auto;
+}
+.search-bar{
+    min-height: 50px;
+    display: flex;
+    align-items: baseline;
+    padding: 8px 24px 0;
+    font-size: 18px;
+    justify-content: space-between;
+}

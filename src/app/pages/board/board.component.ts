@@ -10,7 +10,7 @@ import {  Router  } from '@angular/router';
 export class BoardComponent implements OnInit {
 
   constructor( private route:Router) { 
-    //route.navigate(['board/order']);
+    //route.navigate(['board/order',1]);
   }
 
   ngOnInit() {
@@ -18,6 +18,6 @@ export class BoardComponent implements OnInit {
   }
   Logout(event){
     console.log("#### logout! #####");
-    this.route.navigate(['/login']);
+    this.route.navigate(['login']);
   }
 }

@@ -83,7 +83,7 @@ export class CashbackComponent implements OnInit {
   }
 
   navigato(id){
-    this.route.navigate(['/board/detail',id]);
+    this.route.navigate(['board/detail',id]);
   }
 
 

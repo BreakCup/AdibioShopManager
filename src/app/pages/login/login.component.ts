@@ -47,16 +47,16 @@ export class LoginComponent implements OnInit  {
     }else{
       this.httpLogin.HttpLogin(this.user.toString(),this.passWord.toString()).then(
         (result)=>{
-            if(result.result=='ok'){
-                console.log('成功登录');
-                this.route.navigate(['/board/order']);
-            }else{
-                this.snackBar.open("用户名或者密码错误！",'确定',{duration: 1000,});
-            }
+          if(result.result=='ok'){
+              console.log('成功登录');
+              this.route.navigate(['board/order']);
+          }else{
+              this.snackBar.open("用户名或者密码错误！",'确定',{duration: 1000,});
+          }
         },
         (error)=>{
             console.log(error);
-            this.snackBar.open("请求错误！",'确定',{duration: 1000,});
+            this.snackBar.open("登录失败！",'确定',{duration: 1000,});
         }
     );
     }

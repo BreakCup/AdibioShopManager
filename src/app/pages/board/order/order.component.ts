@@ -21,7 +21,7 @@ export class OrderComponent implements OnInit {
   public CanceledData:OrderConf | null;
   public status = ['ALL','FINISHED','PROCESSING','UNPAID','CANCELED'];
   
-
+  row_
 
 
 

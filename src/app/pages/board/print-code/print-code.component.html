@@ -1,7 +1,6 @@
-<mat-card  class="board-performent">
+<div  class="board-performent">
     <essence-ng2-print 
         [mode]="'popup'"  
-        [standard] = "loose" 
         [popTitle]="'条形码打印'" 
         [btnText]="'打印表格'" 
         [btnClass]="{'mat-raised-button': true}" 
@@ -16,14 +15,17 @@
       <!--
           将你需要打印的内容都放在这里
       -->
-        <div class="print_item" *ngFor = "let info of order_info.parm.infos" >
-            <div class="lab_content">
-                <label class="lab">{{info.product_name}}  &nbsp;&nbsp;</label>
-                <label class="lab">{{info.name}}  &nbsp;&nbsp;</label>
-                <label class="lab">{{info.phone.slice(0,3)}}****{{info.phone.slice(-4)}}</label>
-            </div>
-            <img class="img">
+ 
+        <div class="print_item" *ngFor = "let info of order_detail.parm.infos" >
+            <p class='lab'>
+                {{info.product_name}} 
+                {{info.name}} 
+                {{info.phone.slice(0,3)}}***{{info.phone.slice(-4)}}
+            </p>
+            <img >
         </div>
+
+       
 
 
         
@@ -31,4 +33,4 @@
   </div>
   
    
-</mat-card>
+</div>

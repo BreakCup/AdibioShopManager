@@ -11,6 +11,6 @@ import {  Router  } from '@angular/router';
 })
 export class NotFountComponent {
   constructor(private route:Router){
-    route.navigate(['/login']);
+    route.navigate(['login']);
   }
 }

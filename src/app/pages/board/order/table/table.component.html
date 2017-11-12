@@ -1,0 +1,42 @@
+<div class="search-bar">
+  <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="订单号">
+  </mat-form-field>
+</div>
+  
+ <mat-table #table [dataSource]="dataSource" class="order-table">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+  
+  
+      <!-- ORDER_ID Column -->
+      <ng-container matColumnDef="order_id">
+        <mat-header-cell *matHeaderCellDef> 订单编号 </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.order_id}} </mat-cell>
+      </ng-container>
+  
+      <!-- STATUS Column -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> 订单价格 </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> 订单状态 </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.status}} </mat-cell>
+      </ng-container>
+  
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="Onclick(row)" ></mat-row>
+    </mat-table>
+  
+    
+
+  <mat-paginator #paginator
+    [length]="exampleDatabase.data.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
