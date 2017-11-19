@@ -1,21 +1,29 @@
-<!-- <mat-card  class="board-performent">
-  <mat-tab-group>
-    <mat-tab label="糖尿病早期检测"  >
-      <div class="tab-content" >
-        <product-detail></product-detail>
-      </div>
-    </mat-tab>
-    <mat-tab label="肾病早期检测" class="tab-content" >
-      <div class="tab-content" >
-        <product-detail></product-detail>
-      </div>
-    </mat-tab>
-    <mat-tab label="中风早期检测" class="tab-content">
-      <div class="tab-content" >
-        <product-detail></product-detail>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-</mat-card> -->
-
-123
+<div class="board-performent" >
+    <mat-list>
+        <div style="display:flex; justify-content: space-between;">
+            <h1 mat-subheader>产品列表</h1>
+            <div >
+                <button  mat-raised-button color="primary"  >修改信息</button>
+                <button  mat-raised-button color="accent"  >删除产品</button>     
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div *ngFor="let product of products">
+            <mat-list-item>
+                <div  class="full-width" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div style="line-height:20px;height:20px;">{{product}}</div>
+                    <mat-form-field>
+                        <input matInput placeholder="价格" >
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="返现金额">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="优惠金额">
+                    </mat-form-field>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-list>
+</div>

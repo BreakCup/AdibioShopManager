@@ -2,17 +2,19 @@ import { NgModule } from '@angular/core';
 import {  Routes,RouterModule  } from '@angular/router';
 import {CashbackComponent} from "./cashback.component";
 
-const OrderRoutes:Routes = [
+import {CashbackResolver} from "./../../../resolve.server/resolve.cashback"
+
+const CashbackRoutes:Routes = [
     {
         path: '',
         component: CashbackComponent,
-        pathMatch:'full'
+        resolve:{cashbackData:CashbackResolver}
     }
 ];
 
 @NgModule({
     imports:[
-        RouterModule.forChild(OrderRoutes)
+        RouterModule.forChild(CashbackRoutes)
     ],
     exports: [
         RouterModule

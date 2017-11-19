@@ -1,4 +1,4 @@
-import { Component, OnInit ,ElementRef,ViewChild ,Input, OnChanges,SimpleChanges,KeyValueChanges } from '@angular/core';
+import { Component, OnInit ,ElementRef,ViewChild ,Input,OnChanges } from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material';
 import {MatSort} from '@angular/material';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 
-import {Router} from "@angular/router";
+import {Router ,ActivatedRoute } from "@angular/router";
 
 import {OrderConf,OrderInfoConf} from "./../../../../conf/order.conf";
 
@@ -19,6 +19,7 @@ import {HttpGetOrder} from "./../../../../public.server/http.getOrder.server";
 
 @Component({
   selector: 'order-table',
+  // template: '1',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
   
@@ -26,58 +27,52 @@ import {HttpGetOrder} from "./../../../../public.server/http.getOrder.server";
 
 export class TableComponent implements OnInit {
 
-  
-  // @Input()
-  // set orderData(orderData:OrderConf){
-  //   this._orderData = orderData;
-  //   console.log('set:'+orderData);
-  // }
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('filter') filter: ElementRef;
 
-  @Input() Status:string;
-  @Input() OrderData:OrderConf;
   
   displayedColumns = ['order_id', 'price','status'];
   exampleDatabase : ExampleDatabase;
   dataSource: ExampleDataSource | null;
-
-
-  constructor(private route:Router,private http:HttpGetOrder){
+  OrderData:OrderConf;
+  status:string;
+  
+  constructor(private route:Router,private router:ActivatedRoute , private http:HttpGetOrder){
     console.log('*************tabl construct*********');
+    this.status =  this.router.params['value']['status'];
+    console.log(this.status);
+    
+
     
   }
   
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(){
     console.log('****************data changed!*****************')
-    console.log(changes);
-    this.OrderData =  changes['OrderData'].currentValue;
-    console.log('****************order data*****************')
-    console.log(this.OrderData);
-
-    if(this.OrderData != undefined){
-      // this.exampleDatabase.orderData = this.OrderData;
-      // this.dataSource._exampleDatabase = this.exampleDatabase;
-      this.exampleDatabase = new ExampleDatabase(this.OrderData);
-      this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator);
-      Observable.fromEvent(this.filter.nativeElement, 'keyup')
-      .debounceTime(150)
-      .distinctUntilChanged()
-      .subscribe(() => {
-        if (!this.dataSource) { return; }
-        this.dataSource.filter = this.filter.nativeElement.value;
-      });
-      console.log('************data source************');
-      console.log(this.dataSource);
-    }
+    
     
 
   }
   ngOnInit() {
-    // this.exampleDatabase = new ExampleDatabase(this.OrderData);
-    // this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator);
+    console.log("***************oninit****************");
+    this.router.data.subscribe(res=>{
+      this.OrderData = res['orderData'];
+      console.log("***********DATA ORDERDATA**********");
+      console.log(this.OrderData);
+      this.exampleDatabase = null;
+      this.dataSource = null;
+      this.exampleDatabase = new ExampleDatabase(this.OrderData);
+      this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator,this.http,this.status);
+      this.dataSource.refresh(this.OrderData.parm);
+      this.dataSource._paginator.pageIndex = 0;
+    });
     
+    Observable.fromEvent(this.filter.nativeElement, 'keyup')
+    .debounceTime(150)
+    .distinctUntilChanged()
+    .subscribe(() => {
+      if (!this.dataSource) { return; }
+      this.dataSource.filter = this.filter.nativeElement.value;
+    });
     
   }
 
@@ -148,7 +143,12 @@ export class ExampleDataSource extends DataSource<any> {
   get filter(): string { return this._filterChange.value; }
   set filter(filter: string) { this._filterChange.next(filter); }
 
-  constructor(public _exampleDatabase: ExampleDatabase, public _paginator: MatPaginator) {
+  constructor(
+    public _exampleDatabase: ExampleDatabase, 
+    public _paginator: MatPaginator,
+    private http:HttpGetOrder,
+    private status:string) {
+
     super();
   }
 
@@ -178,14 +178,10 @@ export class ExampleDataSource extends DataSource<any> {
       this._paginator.length = resultData.length;
       var startIndex = this._paginator.pageIndex * this._paginator.pageSize;
 
-      //如果是最后一页
-      if(Math.floor(this._paginator.length/this._paginator.pageSize)+1 == this._paginator.pageIndex){
+      if((this._paginator.pageIndex+1)*this._paginator.pageSize>=this._paginator.length){
         console.log("********************last page!******************");
+        this.GetPartOrder();
       }
-      // if(startIndex > resultData.length){
-      //   startIndex = 0;
-      // }
-      //返回符合条件的数据/某一页
       return resultData.splice(startIndex, this._paginator.pageSize);
     
     });
@@ -195,10 +191,12 @@ export class ExampleDataSource extends DataSource<any> {
 
   disconnect() {}
 
-  //加入新的数据
-  refresh(newData:OrderInfoConf){
-    let data = this._exampleDatabase.data.slice();
-    data.push(this._exampleDatabase.getOrder(newData));
+  //刷新的数据，清空原来的数据
+  refresh(newDatas:OrderInfoConf[]){
+    this._exampleDatabase.dataChange.next([]);
+    let data = [];
+    for(let newData of newDatas)
+      data.push(this._exampleDatabase.getOrder(newData));
     this._exampleDatabase.dataChange.next(data);
   }
 
@@ -206,9 +204,31 @@ export class ExampleDataSource extends DataSource<any> {
   clean(){
     this._exampleDatabase.dataChange.next([]);
   }
+  //合并入新的若干项数据
+  merge(newDatas:OrderConf){
+    let datas = this._exampleDatabase.data.slice();
+    for(let newData of newDatas.parm)
+      datas.push(this._exampleDatabase.getOrder(newData));
+    this._exampleDatabase.dataChange.next(datas);
+  }
 
   // 通过http获取数据
   GetPartOrder(){
+    console.log("********* get part order *******");
+    console.log(this.http.row_id[this.status]);
+    if(this.http.row_id[this.status]>0){
+      console.log("***** row_id > 0*****");
+      this.http.GetPartOrder(this.status).then(
+        res=>{
+          this.merge(res);
+          console.log("***** http res *****",res);
+        },
+        err=>{
+          console.error("***** http err *****",err);
+        }
+      );
+    }
+    
 
   }
 }

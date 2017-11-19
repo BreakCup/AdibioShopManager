@@ -4,7 +4,7 @@
       <div style="display:flex; justify-content: space-between;">
         <h1 mat-subheader>订单信息</h1>
         <div >
-          <button  mat-raised-button color="primary">保存</button>
+          <!-- <button  mat-raised-button color="primary">保存</button> -->
           <button  mat-raised-button color="accent" (click)="print()" >打印条码</button>
           
         </div>
@@ -15,17 +15,22 @@
       <mat-list-item>
         <div  class="full-width" style="display:flex; justify-content:space-between; ">
           <label>编号</label>
-          <label>{{order_info.parm.order.order_id}}</label>
+          <label>{{order_detail.parm.order.order_id}}</label>
         </div>
-        
       </mat-list-item>
       <mat-divider></mat-divider>
       <mat-list-item>
-        <!-- <mat-icon mat-list-icon>monetization_on</mat-icon> -->
+        <mat-grid-list mat-line cols="12" rowHeight="100%" >
+          <mat-grid-tile-header>创建时间</mat-grid-tile-header>
+          <mat-grid-tile [colspan]='10' [rowspan]='1' ></mat-grid-tile>
+          <mat-grid-tile [colspan]='2' [rowspan]='1' >{{order_detail.parm.events[0].event_time | date:'yyyy-MM-dd HH:mm:ss' }}</mat-grid-tile>
+        </mat-grid-list>
+      </mat-list-item>
+      <mat-list-item>
         <mat-grid-list mat-line cols="12" rowHeight="100%" >
           <mat-grid-tile-header>金额</mat-grid-tile-header>
           <mat-grid-tile [colspan]='10' [rowspan]='1' ></mat-grid-tile>
-          <mat-grid-tile [colspan]='2' [rowspan]='1' >￥{{order_info.parm.order.price}}</mat-grid-tile>
+          <mat-grid-tile [colspan]='2' [rowspan]='1' >￥{{order_detail.parm.order.price}}</mat-grid-tile>
         </mat-grid-list>
       </mat-list-item>
       <mat-divider></mat-divider>
@@ -33,7 +38,7 @@
         <mat-grid-list mat-line cols="12" rowHeight="100%" >
           <mat-grid-tile-header>状态</mat-grid-tile-header>
           <mat-grid-tile [colspan]='10' [rowspan]='1' ></mat-grid-tile>
-          <mat-grid-tile [colspan]='2' [rowspan]='1' >{{order_info.parm.order.status}}</mat-grid-tile>
+          <mat-grid-tile [colspan]='2' [rowspan]='1' >{{order_detail.parm.order.status}}</mat-grid-tile>
         </mat-grid-list>
       </mat-list-item>
       <mat-divider></mat-divider>
@@ -48,7 +53,7 @@
 
       <h1 mat-subheader>订单项目</h1>
 
-      <mat-accordion *ngFor="let info of order_info.parm.infos" >
+      <mat-accordion *ngFor="let info of order_detail.parm.infos" >
         <mat-expansion-panel  hideToggle="true">
           <mat-expansion-panel-header  >
             <mat-panel-title>
@@ -71,7 +76,7 @@
 
             <div class="full-width">
               <label style="color: #888;" >性别：</label>
-              <mat-radio-group>
+              <mat-radio-group (change)="info.gender = $event.value">
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.gender=='M'" 
                 value="M">男</mat-radio-button>
@@ -125,7 +130,7 @@
 
             <div class="full-width">
               <label style="color: #888; " >是否有糖尿病家族史：</label>
-              <mat-radio-group >
+              <mat-radio-group  (change)="info.has_diabetic = $event.value">
                 <mat-radio-button [disabled]="show" 
                 [checked]="info.has_diabetic==1" 
                 value='1'>是</mat-radio-button>

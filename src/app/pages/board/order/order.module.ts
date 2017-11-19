@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 
 //模块
+import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import {MatFormFieldModule} from '@angular/material';
-import {MatTableModule} from '@angular/material';
-import {MatPaginatorModule} from '@angular/material';
-import {MatSortModule} from '@angular/material';
-import {MatTabsModule} from '@angular/material'; 
-import {MatInputModule} from '@angular/material';
+import { MatTabsModule } from '@angular/material';
+import { TableModule } from  "./../../../public.module/table.module";
+
+
 
 //组件
 
@@ -17,24 +16,21 @@ import { OrderComponent } from './order.component';
 //路由
 import { OrderRoutesModule } from './order.route';
 
-
+//服务
+import { OrderResolve } from './../../../resolve.server/resolve.order'
 
 @NgModule({
     imports:[
+        CommonModule,
         FlexLayoutModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
         MatTabsModule,
-        MatFormFieldModule,
-        MatInputModule,
-
+        TableModule,
         OrderRoutesModule,
 
         
     ],
     providers:[
-        
+        OrderResolve
     ],
     declarations: [ 
         TableComponent,

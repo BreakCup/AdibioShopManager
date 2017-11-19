@@ -8,6 +8,10 @@ import {AuthGuard} from './public.server/auth-guard.server';
 
 const appRoutes:Routes = [
     {
+        path:'',
+        redirectTo:'login',
+        pathMatch:'full'
+    },{
         path: 'board',
         loadChildren: 'app/pages/board/board.module#BoardModule',
         canLoad:[AuthGuard]

@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 
 //模块
-import {MatFormFieldModule} from '@angular/material';
-import {MatTableModule} from '@angular/material';
-import {MatPaginatorModule} from '@angular/material';
-import {MatSortModule} from '@angular/material';
-import {MatInputModule} from '@angular/material';
-import {MatButtonModule} from '@angular/material';
+import { CommonModule } from '@angular/common';
+import { TableModule } from  "./../../../public.module/table.module";
 
 //组件
 import { CashbackComponent } from './cashback.component';
@@ -14,22 +10,20 @@ import { CashbackComponent } from './cashback.component';
 //路由
 import { CashbackRoutesModule } from './cashback.route';
 
+//服务
+import {CashbackResolver} from "./../../../resolve.server/resolve.cashback"
 
 
 @NgModule({
     imports:[
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-
+        CommonModule,
+        TableModule,
         CashbackRoutesModule,
 
         
     ],
     providers:[
+        CashbackResolver
         
     ],
     declarations: [ 

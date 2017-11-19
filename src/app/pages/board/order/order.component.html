@@ -1,7 +1,7 @@
 <div  class="board-performent">
   
   <!-- 普通的tab -->
-  <mat-tab-group (selectedTabChange)="TabChanged($event,$event.index)" >
+  <!-- <mat-tab-group (selectedTabChange)="TabChanged($event,$event.index)" >
     <mat-tab label="全部" >
       <order-table [OrderData]="AllData" [Status] = 'status[0]' ></order-table>
     </mat-tab>
@@ -17,8 +17,15 @@
     <mat-tab label="已取消">
       <order-table [OrderData]="CanceledData" [Status] = 'status[4]' ></order-table>
     </mat-tab>
-  </mat-tab-group>
-
-    
+  </mat-tab-group> -->
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+       *ngFor="let statu of status"
+       routerLinkActive="active"
+       [routerLink]="[statu.path,statu.status]">
+      {{statu.label}}
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
 
 </div>

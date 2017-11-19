@@ -11,5 +11,6 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
   }
+  products = ['早期肾病筛查','早期糖尿病筛查','早期中风筛查'];
 
 }

@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import {  Router  } from '@angular/router';
+
 
 
 
@@ -10,7 +10,7 @@ import {  Router  } from '@angular/router';
   styles: ['.not-found{margin:50px 20px;}']
 })
 export class NotFountComponent {
-  constructor(private route:Router){
-    route.navigate(['login']);
+  constructor(){
+    
   }
 }

@@ -56,7 +56,10 @@ export class LoginComponent implements OnInit  {
         },
         (error)=>{
             console.log(error);
-            this.snackBar.open("登录失败！",'确定',{duration: 1000,});
+            if(error.url == "http://shop.adibio.cn/admin/login"){
+              this.snackBar.open("登录失败！",'确定',{duration: 1000,});
+            }
+              
         }
     );
     }

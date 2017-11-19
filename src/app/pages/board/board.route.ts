@@ -3,7 +3,6 @@ import {  Routes,RouterModule  } from '@angular/router';
 import {BoardComponent} from "./board.component";
 import { OrderComponent } from './order/order.component';
 import { ProductComponent } from './product/product.component';
-import { MemberComponent } from './member/member.component';
 import { DataComponent } from './data/data.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { PrintCodeComponent } from './print-code/print-code.component';
@@ -22,13 +21,11 @@ const BoardRoutes:Routes = [
             children: [
               {
                 path: 'order',
-                loadChildren:'./order/order.module#OrderModule'
+                loadChildren:'./order/order.module#OrderModule',
+                
               },{
                 path: 'product',
-                component:ProductComponent
-              },{
-                path: 'member',
-                component:MemberComponent
+                loadChildren:'./product/product.module#ProductModule'
               },{
                 path: 'data',
                 component:DataComponent
@@ -41,6 +38,9 @@ const BoardRoutes:Routes = [
               },{
                 path: 'cashback',
                 loadChildren:'./cashback/cashback.module#CashbackModule'
+              },{
+                path: 'result',
+                loadChildren:'./result/result.module#ResultModule'
               }
               
             ]

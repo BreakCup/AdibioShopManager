@@ -10,13 +10,9 @@ import {MatButtonModule} from '@angular/material';
 
 import {MatTabsModule} from '@angular/material';   
 
-
-//import {PublicModule} from './../public.module'
-
 //组件
 import {BoardComponent} from "./board.component";
-import { ProductComponent } from './product/product.component';
-import { MemberComponent } from './member/member.component';
+
 import { DataComponent } from './data/data.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 
@@ -44,9 +40,7 @@ import {BoardRoutesModule} from './board.route';
     ],
     declarations: [ 
         BoardComponent,
-        MemberComponent,
         DataComponent,
-        ProductComponent,
         
         ProductDetailComponent,
 

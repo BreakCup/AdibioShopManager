@@ -11,7 +11,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 
-import {Router} from "@angular/router";
+import {Router ,ActivatedRoute} from "@angular/router";
 
 import {CashbackConf,CashbackParmConf} from "./../../../conf/cashback.conf";
 
@@ -19,6 +19,7 @@ import {HttpGerCashbackData} from "./../../../public.server/http.getCashbackData
 
 @Component({
   selector: 'cashback',
+  // template: '1',
   templateUrl: './cashback.component.html',
   styleUrls: ['./cashback.component.css']
 })
@@ -33,18 +34,22 @@ export class CashbackComponent implements OnInit {
   
   displayedColumns = ['order_id', 'cashback','zhifubao','bank_card','status'];
   
-  database :CashbackDatabase = new CashbackDatabase;
+  database :CashbackDatabase ;
   dataSource : ExampleDataSource | null;
 
-  constructor(private route:Router,private http:HttpGerCashbackData){
+  constructor(private route:Router,private router:ActivatedRoute ,private http:HttpGerCashbackData){
     console.log('*************tabl construct*********');
+    this.router.data.subscribe(req=>{
+      this.cashbackData = req['cashbackData'];
+      this.database = new CashbackDatabase(this.cashbackData);
+    });
     
   }
   
 
   ngOnInit() {
     console.log('*************tabl oninit*********');
-    this.dataSource = new ExampleDataSource(this.database, this.paginator);
+    this.dataSource = new ExampleDataSource(this.database, this.paginator,this.http);
     console.log(this.dataSource);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
     .debounceTime(150)
@@ -54,17 +59,7 @@ export class CashbackComponent implements OnInit {
       this.dataSource.filter = this.filter.nativeElement.value;
     });
 
-    this.http.GetLatestCashbackData().then(
-      (result)=>{
-        console.log('**********http***********')
-        this.cashbackData = null;
-        this.cashbackData = result;
-        this.dataSource.refresh(result.parm);
 
-    });
-    
-
-    
     
   }
   confirm(row){
@@ -111,42 +106,9 @@ export class CashbackDatabase {
   /** Stream that emits whenever the data has been modified. */
   dataChange: BehaviorSubject<CashBackData[]> = new BehaviorSubject<CashBackData[]>([]);
   get data(): CashBackData[] { return this.dataChange.value; };
-  public cashbackData:CashbackConf;
-  constructor() {
 
-      this.cashbackData = {
-        result: "0",
-        errMsg: "0",
-        parm: [{
-          cashbacks: [
-              {
-              order_id: "0",
-              order_infoid: "0",
-              product_name: "0",
-              unit_price: 0,
-              discount: 0,
-              cashback: 0
-              }
-          ],
-          share: {
-              row_id: 1,
-              share_id: "0",
-              from_id: "0",
-              order_id: "0",
-              _paid: false
-          },
-          whole_cashback: 0,
-          customer: {
-              customer_id: "0",
-              telphone: null,
-              email: null,
-              openid: null,
-              register_time: 0,
-              zhifubao_account: "0",
-              bank_card_number: "0"
-          }
-        }]
-    };
+  constructor(public cashbackData:CashbackConf) {
+
 
     for (var i = 0; i < this.cashbackData.parm.length ; i++) {
       this.addCashbackDate(this.cashbackData.parm[i]); 
@@ -161,12 +123,12 @@ export class CashbackDatabase {
   /** Adds a new data to the database. */
   addCashbackDate(cashbackParm:CashbackParmConf) {
     const copiedData = this.data.slice();
-    copiedData.push((this.getOrder(cashbackParm)));
+    copiedData.push((this.GetCashbackData(cashbackParm)));
     this.dataChange.next(copiedData);
   }
 
   /** Builds and returns a new User. */
-  public getOrder(cashbackParm:CashbackParmConf) {
+  public GetCashbackData(cashbackParm:CashbackParmConf) {
     return {
       order_id: cashbackParm.share.order_id,
       cashback:cashbackParm.whole_cashback,
@@ -191,31 +153,15 @@ export class ExampleDataSource extends DataSource<any> {
   get filter(): string { return this._filterChange.value; }
   set filter(filter: string) { this._filterChange.next(filter); }
 
+  
 
  
-  constructor( public _cashbackdatabase:CashbackDatabase , public _paginator: MatPaginator) {
+  constructor( public _cashbackdatabase:CashbackDatabase , public _paginator: MatPaginator,public http:HttpGerCashbackData) {
     super();
     
 
   }
 
-  // /** Adds a new data to the database. */
-  // addCashbackDate(cashbackParm:CashbackParmConf) {
-  //   const copiedData = this.data.slice();
-  //   copiedData.push((this.getOrder(cashbackParm)));
-  //   this.dataChange.next(copiedData);
-  // }
-
-  // /** Builds and returns a new User. */
-  // public getOrder(cashbackParm:CashbackParmConf) {
-  //   return {
-  //     order_id: cashbackParm.share.order_id,
-  //     cashback:cashbackParm.whole_cashback,
-  //     zhifubao:cashbackParm.customer.zhifubao_account,
-  //     bank_card:cashbackParm.customer.bank_card_number,
-  //     status:'',
-  //   };
-  // }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<CashBackData[]> {
@@ -243,14 +189,11 @@ export class ExampleDataSource extends DataSource<any> {
       this._paginator.length = resultData.length;
       var startIndex = this._paginator.pageIndex * this._paginator.pageSize;
 
-      //如果是最后一页
-      if(Math.floor(this._paginator.length/this._paginator.pageSize)-1 == this._paginator.pageIndex){
+      if((this._paginator.pageIndex+1)*this._paginator.pageSize>=this._paginator.length){
         console.log("********************last page!******************");
+        this.GetPartCashback();
       }
-      // if(startIndex > resultData.length){
-      //   startIndex = 0;
-      // }
-      //返回符合条件的数据/某一页
+
       return resultData.splice(startIndex, this._paginator.pageSize);
     
     });
@@ -260,7 +203,7 @@ export class ExampleDataSource extends DataSource<any> {
 
   disconnect() {}
 
-  //刷新数据
+  //刷新数据，载入新的数据
   refresh(newData:CashbackParmConf[]){
     this._cashbackdatabase.dataChange.next([]);
     this._cashbackdatabase.cashbackData.parm = newData;
@@ -269,28 +212,48 @@ export class ExampleDataSource extends DataSource<any> {
       console.log('********for*********');
       console.log(datas);
       console.log(data);
-      console.log(this._cashbackdatabase.getOrder(data));
-      datas.push(this._cashbackdatabase.getOrder(data));
+      console.log(this._cashbackdatabase.GetCashbackData(data));
+      datas.push(this._cashbackdatabase.GetCashbackData(data));
     }
     this._cashbackdatabase.dataChange.next(datas);
   }
 
-  //加入数据
+  //加入单项数据
   add(newData:CashbackParmConf){
     let datas = this._cashbackdatabase.data.slice();
-    datas.push(this._cashbackdatabase.getOrder(newData));
+    datas.push(this._cashbackdatabase.GetCashbackData(newData));
     this._cashbackdatabase.dataChange.next(datas);
 
   }
+
+  //合并入新的若干项数据
+  merge(newDatas:CashbackConf){
+    let datas = this._cashbackdatabase.data.slice();
+    for(let newData of newDatas.parm)
+      datas.push(this._cashbackdatabase.GetCashbackData(newData));
+    this._cashbackdatabase.dataChange.next(datas);
+  }
+
   //清空数据
   clean(){
     this._cashbackdatabase.dataChange.next([]);
   }
 
   // 通过http获取数据
-  GetPartOrder(){
-
+  GetPartCashback(){
+    console.log("get part cashback");
+    if(this.http.row_id>0){
+      console.log("row_id>0");
+      this.http.GetPartData().then(
+        res=>{
+          this.merge(res);
+      },err=>{
+          console.error("err",err);
+      });
+    }
   }
+
+  //改变返现状态
   change(row){
     let datas = this._cashbackdatabase.data.slice();
     let pos = 0;

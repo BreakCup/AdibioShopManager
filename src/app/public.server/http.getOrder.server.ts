@@ -10,34 +10,65 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class HttpGetOrder{
 
-    all_row:number=0;
-    unpaid_row:number=0;
-    fin_row:number=0;
-    proc_row:number=0;
-    cancel_row:number=0;
+    // public status = ['ALL','FINISHED','PROCESSING','UNPAID','CANCELED'];
+    public row_id : {
+        'ALL':Number;
+        'FINISHED':Number;
+        'PROCESSING':Number;
+        'UNPAID':Number;
+        'CANCELED':Number;
+    } = {
+        'ALL' :0,
+        'FINISHED' :0,
+        'PROCESSING' :0,
+        'UNPAID' :0,
+        'CANCELED' : 0,
+    };
 
-    latestOrder:OrderConf;
 
     constructor(private http:HttpClient,private httpConf:HttpConf){
 
+
     }
-    public GetLatestOrder(limit:number,status:string):Promise<OrderConf>{
-
-        return this.http.get(this.httpConf.url+'/latest_orders?limit='+limit.toString()+'&status='+status)
+    public GetLatestOrder(status:string):Promise<OrderConf>{
+        return this.http.get(this.httpConf.url+'/latest_orders?limit='+this.httpConf.order_limit.toString()+'&status='+status)
         .toPromise()
-        .then(response => response as OrderConf)
+        .then((response:OrderConf) =>{
+            //parm 非空数组
+            if(response.parm.length > 0){
+               
+                this.row_id[status] = response.parm[response.parm.length-1].row_id;
+                
+            }else{
+                this.row_id[status] = 0;
+            }
+            console.log("***************in http server get lastaer oredr");
+            console.log(this.row_id[status]);
+            return response as OrderConf;
+        })
         .catch(this.handleError);
-
     }
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
       }
 
-    public GetPartOrder(limit:number,status:string,row_id:number): Promise<OrderConf>{
-        return this.http.get(this.httpConf.url+'/part_orders?limit='+limit.toString()+'&status='+status+"&row_id="+row_id)
+    public GetPartOrder(status:string): Promise<OrderConf>{
+        return this.http.get(this.httpConf.url+'/part_orders?limit='+this.httpConf.order_limit.toString()+'&status='+status+"&start_row="+this.row_id[status].toString())
         .toPromise()
-        .then(response => response as OrderConf)
+        .then((response:OrderConf) =>{
+            //parm 非空数组
+            if(response.parm.length > 0){
+                
+                this.row_id[status] = response.parm[response.parm.length-1].row_id;
+                
+            }else{
+                this.row_id[status] = 0;
+            }
+            console.log("***************in http server get part oredr");
+            console.log(this.row_id[status]);
+            return response as OrderConf;
+        })
         .catch(this.handleError);
 
     }

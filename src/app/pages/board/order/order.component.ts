@@ -1,9 +1,9 @@
 import { Component,  OnInit } from '@angular/core';
 
+import { ActivatedRoute,Router } from '@angular/router';
 
 import {OrderConf,OrderInfoConf} from "./../../../conf/order.conf";
 
-import {HttpGetOrder} from "./../../../public.server/http.getOrder.server";
 
 @Component({
   selector: 'order',
@@ -14,76 +14,40 @@ import {HttpGetOrder} from "./../../../public.server/http.getOrder.server";
 
 export class OrderComponent implements OnInit {
 
-  public AllData:OrderConf | null;
-  public UnpaidData:OrderConf | null;
-  public FinData:OrderConf | null;
-  public ProcData:OrderConf | null;
-  public CanceledData:OrderConf | null;
-  public status = ['ALL','FINISHED','PROCESSING','UNPAID','CANCELED'];
-  
-  row_
+  // public status = ['ALL','FINISHED','PROCESSING','UNPAID','CANCELED'];
+  public status = [
+  {label:'全部',path:'/board/order/status',status:'ALL'},
+  {label:'已完成',path:'/board/order/status',status:'FINISHED'},
+  {label:'处理中',path:'/board/order/status',status:'PROCESSING'},
+  {label:'未支付',path:'/board/order/status',status:'UNPAID'},
+  {label:'已取消',path:'/board/order/status',status:'CANCELED'},];
 
 
 
-  constructor(public http:HttpGetOrder){
-    
-    this.AllData = this.UnpaidData = this.CanceledData = this.FinData = this.ProcData = {
-      result: '',
-      errMsg: '',
-      parm: [{
-        row_id: 0,
-        order_id: "",
-        customer_id: "",
-        price: 0,
-        status: "",
-        description: null
-      }]
-    };
-    console.log("###########order constructor!############");
-    
-    
+  constructor(private route:Router, private router:ActivatedRoute){
+    route.navigate(['/board/order/status','ALL']);
   }
   ngOnInit() {
-    for (let status of this.status){
-      var promise = this.http.GetLatestOrder(20,status);
-      promise.then(
-        (res)=>{
-          console.log('*************http res*********');
-          console.log(res);
-          this.AllData = this.UnpaidData = this.CanceledData = this.FinData = this.ProcData = null;
-          switch(status){
-            case 'ALL':
-            this.AllData = res;
-            break;
-            case 'FINISHED':
-            this.FinData = res;
-            break;
-            case 'PROCESSING':
-            this.ProcData = res;
-            break;
-            case 'UNPAID':
-            this.UnpaidData = res;
-            break;
-            case 'CANCELED':
-            this.CanceledData = res;
-            break;
 
-          }
-      });
-    }
     
     
   }
-  TabChanged(event,index:number){
-    if(event.index==0){
+  
+  TabChanged(event){
+    console.log('************tab changed!**************');
+    console.log(event);
+    this.route.navigate(['/board/order/status',this.status[event.index]]);
+    // if(event.index==0){
       
-    }else if(event.index==1){
+    // }else if(event.index==1){
 
-    }else if(event.index==2){
+    // }else if(event.index==2){
       
-    }else if(event.index==3){
+    // }else if(event.index==3){
       
-    }
+    // }else{
+
+    // }
   }
   
 }

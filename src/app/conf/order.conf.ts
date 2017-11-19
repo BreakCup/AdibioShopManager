@@ -1,7 +1,7 @@
 export class OrderConf {
     result: string;
     errMsg: string;
-    parm: Array<OrderInfoConf>;
+    parm: OrderInfoConf[];
 }
 export class OrderInfoConf{
     row_id: number;

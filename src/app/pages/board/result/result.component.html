@@ -1,0 +1,19 @@
+
+<div  class="board-performent">
+    <mat-list style="width:100%">
+        <mat-list-item style="width:100%">
+            <mat-form-field style="max-width:200px;padding-right:20px;">    
+                <input matInput placeholder="条形码编号" maxlength="20" >
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="search()" >搜索</button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+            <label *ngIf="!hasFind" >搜索不到该编号。</label>
+            <div *ngIf="hasFind">
+                123
+            </div>
+        </mat-list-item>
+    </mat-list>
+
+</div>
