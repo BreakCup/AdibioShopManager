@@ -7,14 +7,13 @@ import {MatMenuModule} from '@angular/material';
 import {MatIconModule} from '@angular/material';
 import {MatListModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
-
 import {MatTabsModule} from '@angular/material';   
 
 //组件
 import {BoardComponent} from "./board.component";
 
 import { DataComponent } from './data/data.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
+
 
 
 //服务
@@ -42,7 +41,6 @@ import {BoardRoutesModule} from './board.route';
         BoardComponent,
         DataComponent,
         
-        ProductDetailComponent,
 
       ],
 })

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 //模块
-import {CommonModule} from '@angular/common'
+import {CommonModule} from '@angular/common';
 import {MatInputModule} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material';
@@ -11,6 +11,7 @@ import {MatIconModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import {MatRadioModule} from '@angular/material';
 import {MatExpansionModule} from '@angular/material';
+
 
 //组件
 import { OrderDetailComponent } from './order-detail.component';

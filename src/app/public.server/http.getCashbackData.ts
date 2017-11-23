@@ -13,7 +13,7 @@ export class HttpGerCashbackData{
     constructor(private http:HttpClient,private httpConf:HttpConf){}
 
     public GetLatestCashbackData():Promise<CashbackConf>{
-        return this.http.get(this.httpConf.url+this.httpConf.getLatestCashbackData+"?limit="+this.httpConf.cashback_limit)
+        return this.http.get(this.httpConf.url+this.httpConf.getLatestCashbackData+"?limit="+this.httpConf.cashback_limit+"&paid=true")
         .toPromise()
         .then((response:CashbackConf) =>{
             if(response.parm.length>0){
@@ -28,7 +28,7 @@ export class HttpGerCashbackData{
         .catch(this.handleError);
     }
     public GetPartData():Promise<CashbackConf>{
-        return this.http.get(this.httpConf.url+this.httpConf.getPartCashbackData+"?limit="+this.httpConf.cashback_limit+"&start_row="+this.row_id.toString())
+        return this.http.get(this.httpConf.url+this.httpConf.getPartCashbackData+"?limit="+this.httpConf.cashback_limit+"&start_row="+this.row_id.toString()+"&paid=true")
         .toPromise()
         .then((response:CashbackConf) =>{
             if(response.parm.length>0){

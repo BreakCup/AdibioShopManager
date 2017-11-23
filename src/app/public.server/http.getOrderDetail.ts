@@ -5,7 +5,9 @@ import {OrderDetailConf} from './../conf/order_detail.conf'
 
 import { HttpConf } from './../conf/http.conf';
 
+import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/observable/forkJoin';
 
 @Injectable()
 export class HttpGetOrderDetail{
@@ -18,6 +20,10 @@ export class HttpGetOrderDetail{
     }
 
     GerOrderDetail(order_id:string){
+        Observable.forkJoin(
+            this.http.get(this.httpConf.url+this.httpConf.getOrderDetail+'?'+'&order_id='+order_id),
+            
+        );
         return this.http.get(this.httpConf.url+this.httpConf.getOrderDetail+'?'+'&order_id='+order_id)
         .toPromise()
         .then(response => response as OrderDetailConf)

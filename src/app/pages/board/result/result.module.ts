@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material';
 import {MatListModule} from '@angular/material';
 
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +20,9 @@ import {MatListModule} from '@angular/material';
 
     ResultRoutesModule,
   ],
-  declarations: [ResultComponent]
+  declarations: [ResultComponent],
+  providers:[
+    
+  ]
 })
 export class ResultModule { }

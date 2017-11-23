@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 //模块
-import {CommonModule} from '@angular/common'
+import {CommonModule} from '@angular/common';
 import {MatInputModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material';
 import {MatListModule} from '@angular/material';

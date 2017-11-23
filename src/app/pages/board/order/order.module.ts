@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 //模块
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common'
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatTabsModule } from '@angular/material';
 import { TableModule } from  "./../../../public.module/table.module";

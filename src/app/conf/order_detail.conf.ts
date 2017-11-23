@@ -43,6 +43,7 @@ export class OrderDetailInfosConf{
     address: string;
     phone: string;
     has_diabetic: number;
+    is_pregnant:number;
     height: number;
     weight: number;
 }
@@ -53,4 +54,15 @@ export class OrderDetailOrderConf{
     price: number;
     status: string;
     description: string;
+}
+
+export class ExpressageInfo{
+    result: string;
+    errMsg: string;
+    parm: {
+        expressage_id: string;
+        order_infoid: string;
+        company: string;
+        expressage_number: string;
+    }
 }

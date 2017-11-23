@@ -22,10 +22,11 @@
       <mat-list-item>
         <mat-grid-list mat-line cols="12" rowHeight="100%" >
           <mat-grid-tile-header>创建时间</mat-grid-tile-header>
-          <mat-grid-tile [colspan]='10' [rowspan]='1' ></mat-grid-tile>
-          <mat-grid-tile [colspan]='2' [rowspan]='1' >{{order_detail.parm.events[0].event_time | date:'yyyy-MM-dd HH:mm:ss' }}</mat-grid-tile>
+          <mat-grid-tile [colspan]='8' [rowspan]='1' ></mat-grid-tile>
+          <mat-grid-tile [colspan]='4' [rowspan]='1' >{{order_detail.parm.events[0].event_time | date:'yyyy-MM-dd HH:mm' }}</mat-grid-tile>
         </mat-grid-list>
       </mat-list-item>
+      <mat-divider></mat-divider>
       <mat-list-item>
         <mat-grid-list mat-line cols="12" rowHeight="100%" >
           <mat-grid-tile-header>金额</mat-grid-tile-header>
@@ -53,7 +54,8 @@
 
       <h1 mat-subheader>订单项目</h1>
 
-      <mat-accordion *ngFor="let info of order_detail.parm.infos" >
+      <!-- 折叠panpel -->
+      <mat-accordion *ngFor="let info of order_detail.parm.infos" (click)="Expend(info)" >
         <mat-expansion-panel  hideToggle="true">
           <mat-expansion-panel-header  >
             <mat-panel-title>
@@ -154,26 +156,65 @@
             </mat-form-field>
           </form>
 
+          
+          <button mat-raised-button color="primary" (click)="change(info)"  [disabled]="infoDisabled" >{{tip}}</button>
+          
+
+          <h5>物流信息</h5>
           <!-- 物流信息 -->
-          <h1 mat-subheader>物流信息</h1>
           <form class="item-form">
             <mat-form-field class="full-width">
-              <input matInput placeholder="物流公司" [disabled]="show" >
+              <input matInput placeholder="物流公司" 
+              [disabled]="show_trans"
+              [value]="expressageInfo[info.order_infoid]==null?'':expressageInfo[info.order_infoid].parm.company">
             </mat-form-field>
-
+    
             <mat-form-field class="full-width">
-              <input matInput  placeholder="物流单号" [disabled]="show">
+              <input matInput  placeholder="物流单号" 
+              [disabled]="show_trans"
+              [value]="expressageInfo[info.order_infoid]==null?'':expressageInfo[info.order_infoid].parm.expressage_number">
+            </mat-form-field>
+          </form>
+          <button mat-raised-button color="primary" (click)="SaveTrans(info)" [disabled]="expressDisabled" >{{tip_trans}}</button>
+         
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    
+      <!-- <mat-divider></mat-divider>
+
+      <h1 mat-subheader>物流信息</h1>
+
+      <mat-accordion>
+        <mat-expansion-panel  hideToggle="true">
+          <mat-expansion-panel-header  >
+            <mat-panel-title>
+              修改物流信息
+            </mat-panel-title>
+            <mat-panel-description>
+              
+            </mat-panel-description>
+            <mat-icon>reorder</mat-icon>
+          </mat-expansion-panel-header>
+          
+
+          <form class="item-form">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="物流公司" [disabled]="show_trans" >
+            </mat-form-field>
+    
+            <mat-form-field class="full-width">
+              <input matInput  placeholder="物流单号" [disabled]="show_trans">
             </mat-form-field>
           </form>
           <mat-action-row>
-            <button mat-button color="primary" (click)="change($event)" >{{tip.toString()}}</button>
+            <button mat-button color="primary" (click)="SaveTrans($event)" >{{tip}}</button>
           </mat-action-row>
         </mat-expansion-panel>
-      </mat-accordion>
+      </mat-accordion> -->
+
       
 
-      <h1 mat-subheader>检测结果</h1>
-      <p>待讨论</p>
     </mat-list>
 
   </mat-card>

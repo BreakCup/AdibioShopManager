@@ -41,6 +41,9 @@ const BoardRoutes:Routes = [
               },{
                 path: 'result',
                 loadChildren:'./result/result.module#ResultModule'
+              },{
+                path: 'result-detail/:infoid',
+                loadChildren:'./result-detail/result-detail.module#ResultDetailModule'
               }
               
             ]

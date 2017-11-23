@@ -1,0 +1,20 @@
+
+
+.backboard{
+    margin: 10px 10px;
+    height: 92%;
+    overflow: auto;
+    
+  }
+  
+  .backboard .inner-content{
+    max-width:900px; 
+    display:flex;
+    flex-direction:column; 
+    justify-content:space-between;
+    align-items:center;
+    margin: auto;
+    width: 80%;
+    height: 96%;
+    
+  }

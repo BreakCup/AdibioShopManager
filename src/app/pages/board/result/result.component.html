@@ -3,16 +3,24 @@
     <mat-list style="width:100%">
         <mat-list-item style="width:100%">
             <mat-form-field style="max-width:200px;padding-right:20px;">    
-                <input matInput placeholder="条形码编号" maxlength="20" >
+                <input matInput placeholder="条形码编号" maxlength="20"
+                 (input)="Input($event)">
+                 <!--  [(ngModel)]="order_infoid" -->
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="search()" >搜索</button>
+            <button mat-raised-button color="primary" (click)="search($event)" >搜索</button>
+            <!-- <button mat-raised-button color="primary" (click)="test()" >测试</button> -->
         </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>
-            <label *ngIf="!hasFind" >搜索不到该编号。</label>
-            <div *ngIf="hasFind">
-                123
+        <mat-list-item *ngIf="searched">
+            <label *ngIf="!hasFound" >搜索不到该编号。</label>
+            <div *ngIf="hasFound" style="width:100%; display:flex; justify-content:space-between;align-items:center; ">
+                <label>{{analysisInfo.parm.patient_info.order_infoid}}</label>
+                <label>{{analysisInfo.parm.patient_info.name}}</label>
+                <button mat-raised-button color="primary" (click) = "edit()" >编辑检测结果</button>
             </div>
+        </mat-list-item>
+        <mat-list-item *ngIf="!searched">
+            <label>请输入检测编号，并点击搜索</label>
         </mat-list-item>
     </mat-list>
 

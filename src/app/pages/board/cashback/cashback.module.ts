@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 //模块
-import { CommonModule } from '@angular/common';
 import { TableModule } from  "./../../../public.module/table.module";
 
 //组件
@@ -16,7 +15,6 @@ import {CashbackResolver} from "./../../../resolve.server/resolve.cashback"
 
 @NgModule({
     imports:[
-        CommonModule,
         TableModule,
         CashbackRoutesModule,
 

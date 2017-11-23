@@ -12,12 +12,12 @@ import 'hammerjs';
 //模块
 import {AppComponent} from "./app.component";
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
-
+import {HttpClientModule} from '@angular/common/http';
 
 //路由
 import {AppRoutesModule} from './app.route';
-import {HttpClientModule} from '@angular/common/http';
-import { NotFountComponent} from "./not_found.component";
+
+
 
 //服务
 import {Interceptor} from './public.server/http.inteceptor';
@@ -28,9 +28,12 @@ import {HttpLogin} from './public.server/http.login.server';
 import {HttpGetOrder} from './public.server/http.getOrder.server';
 import {HttpGetOrderDetail} from './public.server/http.getOrderDetail';
 import {HttpGerCashbackData} from './public.server/http.getCashbackData';
+import { GetAnalysisInfo } from "./public.server/http.getAnalysisInfo";
+import {Expressage} from './public.server/http.expressage';
 
 //组件
 // import { TableComponent} from "./pages/board/table/table.component";
+import { NotFountComponent} from "./not_found.component";
 
 //配置文件
 import { HttpConf } from './conf/http.conf';
@@ -67,6 +70,8 @@ import { HttpConf } from './conf/http.conf';
     HttpGetOrderDetail,
     HttpGerCashbackData,
     OrderDetailResolver,
+    GetAnalysisInfo,
+    Expressage,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
