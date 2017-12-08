@@ -33,24 +33,22 @@ export class PrintCodeComponent implements OnInit, AfterViewChecked {
     this.printCSS =  [''];
     
     this.printStyle = `
-      .print_content{
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          
-          
-      }
-      .print_content .print_item{
-        margin-top: 20px;
-        margin-bottom: 20px;
-          
-      }
-      .lab{
-        font-size: 4px;
-    }
-      
-    `;
+
+    p{
+        margin:0;
+        font-size:12px;
+      }`;
+
+    //   div{
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: center;
+    //     margin-top: 20px;
+    //     margin-bottom: 20px;
+    //   }
+    // font-size:12px; 
+    // -webkit-transform-origin-x: 0;
+    // -webkit-transform: scale(1.0);
 
 
    }
@@ -78,9 +76,10 @@ export class PrintCodeComponent implements OnInit, AfterViewChecked {
     for(let i=0;i<infos.length;i++){
         $(imgs[i]).JsBarcode(infos[i].order_infoid,{
             margin:0,
-            displayValue:false,
+            displayValue:true,
             width:1.2,
-            height:40
+            height:40,
+            fontSize:15,
         });
     }
   }

@@ -85,20 +85,26 @@ export class OrderDetailComponent implements OnInit {
   }
   SaveTrans(info){
     this.show_trans=!this.show_trans;
-    this.expressageInfo[info.order_infoid].order_infoid = info.order_infoid;
+    this.expressageInfo[info.order_infoid].parm.order_infoid = info.order_infoid;
+
+    var xml = new XMLHttpRequest();
+    var url = this.httpconf.url + this.httpconf.updateExpressageInfo;
     
     if(this.show_trans){
       this.expressDisabled = true;
-      this.httpExpressage.UpDateExpressageInfo(this.expressageInfo[info.order_infoid]).then(res=>{
+      xml.open('POST',url);
+      xml.setRequestHeader("Content-Type","application/json");
+      xml.onreadystatechange = ()=>{
         this.expressDisabled = false;
-        if(res.result=='ok'){
+        if(xml.readyState==4 && xml.status==200){
           this.tip_trans = '修改物流信息';
           alert("修改成功！");
-        }else{
+        }else if(xml.readyState==4){
           this.show_trans=!this.show_trans;
           alert("修改失败！");
         }
-      })
+      }
+      xml.send(JSON.stringify(this.expressageInfo[info.order_infoid].parm));
       
     }else{
         this.tip_trans = '确认修改';
@@ -108,9 +114,9 @@ export class OrderDetailComponent implements OnInit {
     
     this.router.navigate(['board/print',this.order_id]);
   }
-  Expend(info){
-    
-    
+  result(info){
+    this.router.navigate(['board/result-detail',info.order_infoid]);
   }
+
 
 }

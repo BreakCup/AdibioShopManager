@@ -1,5 +1,11 @@
-.tab-content{
-    display: flex;
-    
-    /* justify-content: center; */
+.backboard{
+    margin:auto;
+    width: 80%;
+}
+
+.loading{
+    position: fixed;
+    left: auto;
+    right: auto;
+    top: auto;
 }

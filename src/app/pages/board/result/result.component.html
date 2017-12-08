@@ -4,10 +4,11 @@
         <mat-list-item style="width:100%">
             <mat-form-field style="max-width:200px;padding-right:20px;">    
                 <input matInput placeholder="条形码编号" maxlength="20"
-                 (input)="Input($event)">
+                 (input)="Input($event)"
+                 (keyup)="KeyUp($event)">
                  <!--  [(ngModel)]="order_infoid" -->
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="search($event)" >搜索</button>
+            <button mat-raised-button color="primary" (click)="search()" >搜索</button>
             <!-- <button mat-raised-button color="primary" (click)="test()" >测试</button> -->
         </mat-list-item>
         <mat-divider></mat-divider>

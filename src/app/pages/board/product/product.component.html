@@ -1,4 +1,4 @@
-<div class="board-performent" >
+<!-- <div class="board-performent" >
     <mat-list>
         <div style="display:flex; justify-content: space-between;">
             <h1 mat-subheader>产品列表</h1>
@@ -26,4 +26,71 @@
             <mat-divider></mat-divider>
         </div>
     </mat-list>
+</div> -->
+<div class="backboard" *ngIf="loading==3" >
+    <mat-accordion class="full-width" >
+        <mat-expansion-panel  hideToggle="true" class="full-width" *ngFor="let product of products.parm" >
+            <mat-expansion-panel-header  >
+                <mat-panel-title>
+                    {{product.product_name}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    
+                </mat-panel-description>
+                <mat-icon>reorder</mat-icon>
+            </mat-expansion-panel-header>
+            <!-- 产品信息 -->
+            <table class="full-width" ><tr>
+                <td><mat-form-field class="full-width">
+                    <input matInput placeholder="产品名"
+                    [value]="product.product_name" 
+                    (input)="product.product_name=$event.target.value"
+                    [disabled]="proInfoDisabled">
+                </mat-form-field></td>
+                <td><mat-form-field class="full-width">
+                    <input matInput placeholder="价格"
+                    [value]="product.unit_price" 
+                    [disabled]="proInfoDisabled">
+                </mat-form-field></td>
+            </tr></table>
+            <mat-form-field class="full-width">
+                <textarea matInput placeholder="产品描述"
+                [value]="product.description==null?'':product.description" 
+                (input)="product.description=$event.target.value" 
+                [disabled]="proInfoDisabled">
+                </textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="SaveProduct(product)"  [disabled]="proDisabled" >{{productTip}}</button>
+            
+            <h5> </h5>
+            <!-- 优惠信息 -->
+            <table class="full-width" ><tr>
+                <td><mat-form-field class="full-width">
+                    <input matInput placeholder="优惠（元）"
+                    [value]="productDisconts[product.product_id].parm[0].discount" 
+                    (input)="productDisconts[product.product_id].parm[0].discount = $event.target.value" 
+                    [disabled]="disInfoDisabled">
+                </mat-form-field></td>
+                <td><mat-form-field class="full-width">
+                    <input matInput placeholder="返现（元）"
+                    [value]="productDisconts[product.product_id].parm[0].cashback" 
+                    (input)="productDisconts[product.product_id].parm[0].cashback = $event.target.value" 
+                    [disabled]="disInfoDisabled">
+                </mat-form-field></td>
+            </tr><tr>
+                <td colspan="2" ><mat-form-field class="full-width"  >
+                    <textarea matInput placeholder="优惠描述"
+                    [value]="productDisconts[product.product_id].parm[0].description" 
+                    (input)="productDisconts[product.product_id].parm[0].description=$event.target.value"  
+                    [disabled]="disInfoDisabled">
+                    </textarea>
+                </mat-form-field></td>
+            </tr></table>
+            <button mat-raised-button color="primary" (click)="SaveDiscount(product)"  [disabled]="discountDisabled" >{{discountTip}}</button>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<div *ngIf="loading!=3" class="loading" >
+    <h1>加载中</h1>
 </div>

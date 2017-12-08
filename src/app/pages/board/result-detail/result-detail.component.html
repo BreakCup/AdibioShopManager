@@ -1,124 +1,123 @@
 <div class="backboard" >
-  <div class="inner-content" >
-    <h2>糖老师知道检测中心用户信息表</h2>
-    <!-- 项目信息 -->
-    <form class="full-width">
-      <table class="full-width" cellspacing="0">
-        <tr>
-          <td><mat-form-field class="full-width">
-              <input matInput placeholder="姓名" 
-              [value]="analysisInfo.parm.patient_info.name" 
-              [disabled]="true">
-            </mat-form-field></td>
-          <td><mat-form-field class="full-width">
-            <input matInput placeholder="性别"
-            [value]="analysisInfo.parm.patient_info.gender=='M'?'男':'女'" 
-            [disabled]="true">
-          </mat-form-field></td>
-          <td><mat-form-field class="full-width">
-            <input matInput placeholder="年龄" 
-            [value]="analysisInfo.parm.patient_info.age" 
-            [disabled]="true">
-          </mat-form-field></td>
-        </tr></table>
-  
-        <table class="full-width" cellspacing="0"><tr>
-          <td><mat-form-field class="full-width">
-              <input matInput placeholder="身高（cm）" 
-              [value]="analysisInfo.parm.patient_info.height" 
-              [disabled]="true">
-            </mat-form-field></td>
-          <td><mat-form-field class="full-width">
-            <input matInput placeholder="体重（kg）"
-            [value]="analysisInfo.parm.patient_info.weight" 
-            [disabled]="true">
-          </mat-form-field></td>
-          <td><mat-form-field class="full-width">
-            <input matInput placeholder="是否怀孕" 
-            [value]="analysisInfo.parm.patient_info.is_pregnant==0?'否':'是'" 
-            [disabled]="true">
-          </mat-form-field></td>
-        </tr>
-        <tr>
-          <td><mat-form-field class="full-width">
-              <input matInput placeholder="是否有糖尿病史" 
-              [value]="analysisInfo.parm.patient_info.has_diabetic==0?'否':'是'" 
-              [disabled]="true">
-            </mat-form-field></td>
-          <td colspan="2" ><mat-form-field class="full-width">
-            <input matInput placeholder="联系电话"
-            [value]="analysisInfo.parm.patient_info.phone" 
-            [disabled]="true">
-          </mat-form-field></td>
-        </tr>
-        <tr>
-          <td colspan="3" ><mat-form-field class="full-width">
-            <input matInput placeholder="检测地址"
-            [value]="analysisInfo.parm.patient_info.province
-            +' '+analysisInfo.parm.patient_info.city
-            +' '+analysisInfo.parm.patient_info.district" 
-            [disabled]="true">
-          </mat-form-field></td>
-        </tr>
-        <tr>
-          <td colspan="3" ><mat-form-field class="full-width">
-            <input matInput placeholder="详细地址"
-            [value]="analysisInfo.parm.patient_info.address" 
-            [disabled]="true">
-          </mat-form-field></td>
-        </tr>
-      </table>
-  
-      <table class="full-width" cellspacing="0"><tr>
+  <h2>糖老师知道检测中心用户信息表</h2>
+  <!-- 项目信息 -->
+  <form class="full-width">
+    <table class="full-width" cellspacing="0">
+      <tr>
         <td><mat-form-field class="full-width">
-          <input matInput placeholder="检测项目" 
-            [value]="analysisInfo.parm.product_name" 
+            <input matInput placeholder="姓名" 
+            [value]="analysisInfo.parm.patient_info.name" 
             [disabled]="true">
           </mat-form-field></td>
         <td><mat-form-field class="full-width">
-          <input matInput placeholder="样本收集日期"
-          [value]="analysisInfo.parm.analysis.collection_date==null?'':analysisInfo.parm.analysis.collection_date"
-          (input)="analysisInfo.parm.analysis.collection_date = $event.target.value" 
-          [disabled]="cannotEdit">
+          <input matInput placeholder="性别"
+          [value]="analysisInfo.parm.patient_info.gender=='M'?'男':'女'" 
+          [disabled]="true">
         </mat-form-field></td>
-      </tr><tr>
         <td><mat-form-field class="full-width">
-          <input matInput placeholder="检测日期" 
-          [value]="analysisInfo.parm.analysis.analysis_date==null?'':analysisInfo.parm.analysis.analysis_date" 
-          (input)="analysisInfo.parm.analysis.analysis_date = $event.target.value" 
-          [disabled]="cannotEdit">
-          </mat-form-field></td>
-        <td><mat-form-field class="full-width">
-          <input matInput placeholder="检测结果"
-          [value]="analysisInfo.parm.analysis.result==null?'':analysisInfo.parm.analysis.result" 
-          (input)="analysisInfo.parm.analysis.result = $event.target.value" 
-          [disabled]="cannotEdit">
+          <input matInput placeholder="年龄" 
+          [value]="analysisInfo.parm.patient_info.age" 
+          [disabled]="true">
         </mat-form-field></td>
       </tr></table>
-      <button mat-raised-button color="primary" 
-        type="button" 
-        (click)="Edit()" 
-        [disabled]="cannotClick">
-        {{btnTip}}
-      </button>
-    </form>
-    <br>
-    <ol>
-      <h5>备注:</h5>
-      <li>身高、体重为选填信息，其余为必填信息。</li>
-      <li>邮寄地址指样品杯、真空收集管寄送地址 ；详细地址指待检测人居住地址。</li>
-      <li>本项目检测结果仅为初步筛查，不是确诊试验。目前临床上OGTT试验为糖尿病确诊试验，
-        肾穿刺活检试验为肾病的确诊实验。鉴于本项目检测试剂灵敏度和特异性尚无法做到100%，
-        如发现异常者，建议其前往医院进行相应的检测予以确诊，该行为自愿，
-        费用由用户本人自行承担。
-      </li>
-      <li>本项目所用的检测试剂均由深圳市安帝宝科技有限公司提供。</li>
-      <li>报告或报告复印件未加盖单位检测试验专用章，均为无效报告。</li>
-      <li>如对本报告结果有异议，请于收到报告十五日内向本单位提出，期限内给予受理。
-          受理电话（传真）：0755-23733673。
-      </li>
-    </ol>
-  </div>
+
+      <table class="full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="full-width">
+            <input matInput placeholder="身高（cm）" 
+            [value]="analysisInfo.parm.patient_info.height" 
+            [disabled]="true">
+          </mat-form-field></td>
+        <td><mat-form-field class="full-width">
+          <input matInput placeholder="体重（kg）"
+          [value]="analysisInfo.parm.patient_info.weight" 
+          [disabled]="true">
+        </mat-form-field></td>
+        <td><mat-form-field class="full-width">
+          <input matInput placeholder="是否怀孕" 
+          [value]="analysisInfo.parm.patient_info.is_pregnant==0?'否':'是'" 
+          [disabled]="true">
+        </mat-form-field></td>
+      </tr>
+      <tr>
+        <td><mat-form-field class="full-width">
+            <input matInput placeholder="是否有糖尿病史" 
+            [value]="analysisInfo.parm.patient_info.has_diabetic==0?'否':'是'" 
+            [disabled]="true">
+          </mat-form-field></td>
+        <td colspan="2" ><mat-form-field class="full-width">
+          <input matInput placeholder="联系电话"
+          [value]="analysisInfo.parm.patient_info.phone" 
+          [disabled]="true">
+        </mat-form-field></td>
+      </tr>
+      <tr>
+        <td colspan="3" ><mat-form-field class="full-width">
+          <input matInput placeholder="检测地址"
+          [value]="analysisInfo.parm.patient_info.province
+          +' '+analysisInfo.parm.patient_info.city
+          +' '+analysisInfo.parm.patient_info.district" 
+          [disabled]="true">
+        </mat-form-field></td>
+      </tr>
+      <tr>
+        <td colspan="3" ><mat-form-field class="full-width">
+          <input matInput placeholder="详细地址"
+          [value]="analysisInfo.parm.patient_info.address" 
+          [disabled]="true">
+        </mat-form-field></td>
+      </tr>
+    </table>
+
+    <table class="full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="full-width">
+        <input matInput placeholder="检测项目" 
+          [value]="analysisInfo.parm.product_name" 
+          [disabled]="true">
+        </mat-form-field></td>
+      <td><mat-form-field class="full-width">
+        <input matInput placeholder="样本收集日期(年-月-日)"
+        [value]="collection_date==null?'':GetDate(collection_date)"
+        (input)="analysisInfo.parm.analysis.collection_date = $event.target.value" 
+        [disabled]="cannotEdit">
+      </mat-form-field></td>
+    </tr><tr>
+      <td><mat-form-field class="full-width">
+        <input matInput placeholder="检测日期(年-月-日)" 
+        [value]="analysis_date==null?'':GetDate(analysis_date)" 
+        (input)="analysisInfo.parm.analysis.analysis_date = $event.target.value" 
+        [disabled]="cannotEdit">
+        </mat-form-field></td>
+      <td><mat-form-field class="full-width">
+        <input matInput placeholder="检测结果"
+        [value]="analysisInfo.parm.analysis.result==null?'':analysisInfo.parm.analysis.result" 
+        (input)="analysisInfo.parm.analysis.result = $event.target.value" 
+        [disabled]="cannotEdit">
+      </mat-form-field></td>
+    </tr></table>
+    <button mat-raised-button color="primary" 
+      type="button" 
+      (click)="Edit()" 
+      [disabled]="cannotClick">
+      {{btnTip}}
+    </button>
+  </form>
+  <br>
+  <ol>
+    <h5>备注:</h5>
+    <li>身高、体重为选填信息，其余为必填信息。</li>
+    <li>邮寄地址指样品杯、真空收集管寄送地址 ；详细地址指待检测人居住地址。</li>
+    <li>本项目检测结果仅为初步筛查，不是确诊试验。目前临床上OGTT试验为糖尿病确诊试验，
+      肾穿刺活检试验为肾病的确诊实验。鉴于本项目检测试剂灵敏度和特异性尚无法做到100%，
+      如发现异常者，建议其前往医院进行相应的检测予以确诊，该行为自愿，
+      费用由用户本人自行承担。
+    </li>
+    <li>本项目所用的检测试剂均由深圳市安帝宝科技有限公司提供。</li>
+    <li>报告或报告复印件未加盖单位检测试验专用章，均为无效报告。</li>
+    <li>如对本报告结果有异议，请于收到报告十五日内向本单位提出，期限内给予受理。
+        受理电话（传真）：0755-23733673。
+    </li>
+  </ol>
 </div>
+
 
       

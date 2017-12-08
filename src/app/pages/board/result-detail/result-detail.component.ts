@@ -14,11 +14,17 @@ export class ResultDetailComponent implements OnInit {
   public cannotEdit = true;
   public btnTip = '修改结果';
   public analysisInfo:AnalysisResponse;
+  public collection_date:string;
+  public analysis_date:string;
   constructor(private route:ActivatedRoute,private http :GetAnalysisInfo,private httpconf:HttpConf) { 
     route.data.subscribe(res=>{
       this.analysisInfo = res['analysisResponse']
       if(!this.analysisInfo.parm.analysis)
         alert("获取数据错误，请刷新页面！");
+      else{
+        this.collection_date = this.analysisInfo.parm.analysis.collection_date;
+        this.analysis_date = this.analysisInfo.parm.analysis.analysis_date;
+      }
     });
     console.log("************** result-detail get analysisinfo****************");
     console.log(this.analysisInfo);
@@ -26,6 +32,18 @@ export class ResultDetailComponent implements OnInit {
 
   ngOnInit() {
   }
+  
+  GetDate(date){
+    var res = '';
+    var newDate = new Date(parseInt(date));
+    res += newDate.getFullYear().toString();
+    res += '-';
+    res += newDate.getMonth().toString();
+    res += '-';
+    res += newDate.getDate().toString();
+    return res;
+  }
+  
   
   Edit(){
     // if(!this.cannotEdit){
@@ -64,6 +82,7 @@ export class ResultDetailComponent implements OnInit {
           this.btnTip = '修改结果';
           this.cannotEdit = !this.cannotEdit;
           alert("成功保存！");
+          
         }else if(xml.status!=200 && xml.readyState==4){
           alert("成功失败!");
         }
@@ -79,6 +98,27 @@ export class ResultDetailComponent implements OnInit {
 
     
 
+  }
+  send(){
+    var xml = new XMLHttpRequest();
+    var url = this.httpconf.url+'/notify_analysis';
+    xml.open('POST',url);
+    xml.setRequestHeader("Content-Type","application/json");
+    xml.onreadystatechange = (ev)=>{
+      this.cannotClick = false;
+      if(xml.status==200 && xml.readyState==4){
+        console.log("******成功！*******");
+        console.log(xml);
+        this.btnTip = '修改结果';
+        this.cannotEdit = !this.cannotEdit;
+        alert("成功保存！");
+      }else if(xml.status!=200 && xml.readyState==4){
+        alert("成功失败!");
+      }
+
+    }
+    xml.send(JSON.stringify(this.analysisInfo.parm.analysis));
+    //?analysis_id=
   }
 
 }

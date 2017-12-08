@@ -9,11 +9,17 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class HttpGerCashbackData{
     public row_id:number = 0;
-
+    public status = '';
     constructor(private http:HttpClient,private httpConf:HttpConf){}
 
     public GetLatestCashbackData():Promise<CashbackConf>{
-        return this.http.get(this.httpConf.url+this.httpConf.getLatestCashbackData+"?limit="+this.httpConf.cashback_limit+"&paid=true")
+        let bool = '';
+        if(this.status=='paid'){
+            bool = 'true';
+        }else{
+            bool = 'false';
+        }
+        return this.http.get(this.httpConf.url+this.httpConf.getLatestCashbackData+"?limit="+this.httpConf.cashback_limit+"&paid="+bool)
         .toPromise()
         .then((response:CashbackConf) =>{
             if(response.parm.length>0){
@@ -28,7 +34,13 @@ export class HttpGerCashbackData{
         .catch(this.handleError);
     }
     public GetPartData():Promise<CashbackConf>{
-        return this.http.get(this.httpConf.url+this.httpConf.getPartCashbackData+"?limit="+this.httpConf.cashback_limit+"&start_row="+this.row_id.toString()+"&paid=true")
+        let bool = '';
+        if(this.status=='paid'){
+            bool = 'true';
+        }else{
+            bool = 'false';
+        }
+        return this.http.get(this.httpConf.url+this.httpConf.getPartCashbackData+"?limit="+this.httpConf.cashback_limit+"&start_row="+this.row_id.toString()+"&paid="+bool)
         .toPromise()
         .then((response:CashbackConf) =>{
             if(response.parm.length>0){

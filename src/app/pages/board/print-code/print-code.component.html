@@ -15,20 +15,26 @@
       <!--
           将你需要打印的内容都放在这里
       -->
- 
-        <div class="print_item" *ngFor = "let info of order_detail.parm.infos" >
-            <p class='lab'>
-                {{info.product_name}} 
+      <!-- <table>
+          <tr class="print_item" *ngFor = "let info of order_detail.parm.infos">
+            <p class='lab lab_min'>
+                {{info.product_name}}
+                {{info.name}} 
+                {{info.phone.slice(0,3)}}***{{info.phone.slice(-4)}}
+            </p>
+            <img >
+          </tr>
+      </table> -->
+
+        <div  class="print_item" *ngFor = "let info of order_detail.parm.infos" >
+            <p class='lab lab_min' style="margin:0;font-size:12px;">
+                {{info.product_name}}
                 {{info.name}} 
                 {{info.phone.slice(0,3)}}***{{info.phone.slice(-4)}}
             </p>
             <img >
         </div>
 
-       
-
-
-        
 
   </div>
   

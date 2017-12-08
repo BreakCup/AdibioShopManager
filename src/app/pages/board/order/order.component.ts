@@ -1,6 +1,6 @@
 import { Component,  OnInit } from '@angular/core';
 
-import { ActivatedRoute,Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {OrderConf,OrderInfoConf} from "./../../../conf/order.conf";
 
@@ -24,7 +24,7 @@ export class OrderComponent implements OnInit {
 
 
 
-  constructor(private route:Router, private router:ActivatedRoute){
+  constructor(private route:Router){
     route.navigate(['/board/order/status','ALL']);
   }
   ngOnInit() {

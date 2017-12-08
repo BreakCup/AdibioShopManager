@@ -1,30 +1,29 @@
 import { HttpClient,HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import {OrderDetailConf} from './../conf/order_detail.conf'
-
+import { ProductList,ProductDiscountList } from './../conf/product.conf'
 import { HttpConf } from './../conf/http.conf';
-
 import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
-export class HttpGetOrderDetail{
+export class HttpProduct{
 
-    oredrDetail:OrderDetailConf;
+
 
 
     constructor(private http:HttpClient,private httpConf:HttpConf){
         
     }
 
-    GerOrderDetail(order_id:string){
-
-        return this.http.get(this.httpConf.url+this.httpConf.getOrderDetail+'?order_id='+order_id)
+    GerProductList(product_groupid):Promise<ProductList>{
+        return this.http.get(this.httpConf.url+this.httpConf.getProductList+'?product_groupid=' + product_groupid )
         .toPromise()
-        .then(response => response as OrderDetailConf)
         .catch(this.handleError);
-
+    }
+    GerProductDiscont(product_id):Promise<ProductDiscountList>{
+        return this.http.get(this.httpConf.url+this.httpConf.getProductDiscontList+'?product_id=' + product_id )
+        .toPromise()
+        .catch(this.handleError);
     }
     private handleError(error: any): Promise<any> {
         console.log(error.headers.status);

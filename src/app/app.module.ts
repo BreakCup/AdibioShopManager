@@ -14,6 +14,8 @@ import {AppComponent} from "./app.component";
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpClientModule} from '@angular/common/http';
 
+
+
 //路由
 import {AppRoutesModule} from './app.route';
 
@@ -30,6 +32,7 @@ import {HttpGetOrderDetail} from './public.server/http.getOrderDetail';
 import {HttpGerCashbackData} from './public.server/http.getCashbackData';
 import { GetAnalysisInfo } from "./public.server/http.getAnalysisInfo";
 import {Expressage} from './public.server/http.expressage';
+import { HttpProduct } from './public.server/http.product';
 
 //组件
 // import { TableComponent} from "./pages/board/table/table.component";
@@ -72,6 +75,7 @@ import { HttpConf } from './conf/http.conf';
     OrderDetailResolver,
     GetAnalysisInfo,
     Expressage,
+    HttpProduct,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

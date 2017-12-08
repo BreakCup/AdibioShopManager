@@ -1,23 +1,5 @@
 <div  class="board-performent">
-  
-  <!-- 普通的tab -->
-  <!-- <mat-tab-group (selectedTabChange)="TabChanged($event,$event.index)" >
-    <mat-tab label="全部" >
-      <order-table [OrderData]="AllData" [Status] = 'status[0]' ></order-table>
-    </mat-tab>
-    <mat-tab label="已完成">
-      <order-table [OrderData]="FinData" [Status] = 'status[1]' ></order-table>
-    </mat-tab>
-    <mat-tab label="处理中">
-      <order-table [OrderData]="ProcData" [Status] = 'status[2]'  ></order-table>
-    </mat-tab>
-    <mat-tab label="未支付">
-      <order-table [OrderData]="UnpaidData" [Status] = 'status[3]'  ></order-table>
-    </mat-tab>
-    <mat-tab label="已取消">
-      <order-table [OrderData]="CanceledData" [Status] = 'status[4]' ></order-table>
-    </mat-tab>
-  </mat-tab-group> -->
+
   <nav mat-tab-nav-bar>
     <a mat-tab-link
        *ngFor="let statu of status"

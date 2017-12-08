@@ -10,11 +10,13 @@ import { HttpGerCashbackData } from './../public.server/http.getCashbackData';
 @Injectable()
 export class CashbackResolver implements Resolve<CashbackConf> {
   constructor(private server: HttpGerCashbackData, private router: Router) {
-
+    
   }
  
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<CashbackConf> {
+    let status = route.paramMap.get('status');
     this.server.row_id = 0;
+    this.server.status = status;
     return this.server.GetLatestCashbackData().then((result:CashbackConf)=>{
         if(result){
             console.log('**********right result!*********');

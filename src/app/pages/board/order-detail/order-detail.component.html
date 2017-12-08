@@ -1,10 +1,10 @@
-<div  class="board-performent">
-  <mat-card class="order-detail-form">
-    <mat-list>
+
+    <mat-list class="order-form" >
+
       <div style="display:flex; justify-content: space-between;">
         <h1 mat-subheader>订单信息</h1>
         <div >
-          <!-- <button  mat-raised-button color="primary">保存</button> -->
+          
           <button  mat-raised-button color="accent" (click)="print()" >打印条码</button>
           
         </div>
@@ -55,7 +55,7 @@
       <h1 mat-subheader>订单项目</h1>
 
       <!-- 折叠panpel -->
-      <mat-accordion *ngFor="let info of order_detail.parm.infos" (click)="Expend(info)" >
+      <mat-accordion *ngFor="let info of order_detail.parm.infos" >
         <mat-expansion-panel  hideToggle="true">
           <mat-expansion-panel-header  >
             <mat-panel-title>
@@ -156,22 +156,25 @@
             </mat-form-field>
           </form>
 
+          <div style="display:flex; justify-content:space-between; ">
+            <button mat-raised-button color="primary" (click)="change(info)"  [disabled]="infoDisabled" >{{tip}}</button>
+            <button  mat-raised-button color="accent" (click)="result(info)" >查看检测结果</button>
+          </div>
           
-          <button mat-raised-button color="primary" (click)="change(info)"  [disabled]="infoDisabled" >{{tip}}</button>
-          
-
           <h5>物流信息</h5>
           <!-- 物流信息 -->
           <form class="item-form">
             <mat-form-field class="full-width">
               <input matInput placeholder="物流公司" 
               [disabled]="show_trans"
+              (input)="expressageInfo[info.order_infoid].parm.company = $event.target.value" 
               [value]="expressageInfo[info.order_infoid]==null?'':expressageInfo[info.order_infoid].parm.company">
             </mat-form-field>
     
             <mat-form-field class="full-width">
               <input matInput  placeholder="物流单号" 
               [disabled]="show_trans"
+              (input)="expressageInfo[info.order_infoid].parm.expressage_number = $event.target.value" 
               [value]="expressageInfo[info.order_infoid]==null?'':expressageInfo[info.order_infoid].parm.expressage_number">
             </mat-form-field>
           </form>
@@ -217,5 +220,4 @@
 
     </mat-list>
 
-  </mat-card>
-</div>
+

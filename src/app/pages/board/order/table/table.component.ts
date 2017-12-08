@@ -81,6 +81,12 @@ export class TableComponent implements OnInit {
     console.log(row);
     this.route.navigate(["board/detail",row.order_id]);
   }
+  GetStatus(status){
+    switch(status){
+      case 'PAID':
+        return '已完成';
+    }
+  }
   
 }
 

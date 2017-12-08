@@ -21,10 +21,8 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
   }
-  search(event){
+  search(){
     this.searched = true;
-    this.order_infoid = event.target.value;
-    console.log(event);
     console.log(this.order_infoid);
     this.http.GetAnalysisInfo().then((res:AnalysisResponse)=>{
       if(res.result == 'err'){
@@ -32,6 +30,7 @@ export class ResultComponent implements OnInit {
       }else{
         this.analysisInfo = res;
         this.hasFound = true;
+        this.edit();
       }
     });
   }
@@ -39,12 +38,16 @@ export class ResultComponent implements OnInit {
     console.log("****************input****************");
     this.http.order_infoid = event.target.value;
     this.order_infoid = event.target.value;
-    console.log(this.order_infoid);
   }
   test(){
     this.http.test();
   }
   edit(){
     this.route.navigate(['board/result-detail',this.http.order_infoid]);
+  }
+  KeyUp(event){
+    if(event.key=='Enter'){
+      this.search();
+    }
   }
 }

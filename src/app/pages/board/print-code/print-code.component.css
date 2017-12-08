@@ -3,15 +3,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    
-    
 }
 .print_content .print_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
     
 }
 .lab{
-    font-size: 4px;
+    /* font-size:12px; 
+    -webkit-transform-origin-x: 0;
+    -webkit-transform: scale(1.0);
+    line-height: 18px; */
+}
+.lab_min{
+    font-size:12px;
+    /* line-height: 18px; */
 }
